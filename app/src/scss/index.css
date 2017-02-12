@@ -1,0 +1,53 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.restsplain {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+.restsplain-header {
+  margin: 0 20px;
+}
+
+.restsplain-docs {
+  display: flex;
+}
+
+.restsplain-menu {
+  flex: 1 0 0;
+  margin: 0 20px;
+}
+
+.restsplain-endpoints {
+  flex: 4 0 0;
+  margin: 0 20px;
+}
+
+table {
+  margin: 20px 0;
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+thead {
+  background: rgba(0,0,0,.1);
+}
+
+th {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+td {
+  padding: 10px;
+}
+
+tbody tr:nth-child(2n) {
+  background: rgba(0,0,0,.05);
+}
