@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 
-const Response = ({ data, contexts = ['view'] }) => {
+const Response = ({ resource, contexts = ['view'], data = {} }) => {
 
   // fetch endpoint
 
@@ -11,10 +11,18 @@ const Response = ({ data, contexts = ['view'] }) => {
   return (
     <div className="restsplain-endpoint-response">
       <h3>Response</h3>
-      <pre className="restsplain-endpoint-response-raw"></pre>
+      <pre className="restsplain-endpoint-response-raw">
+        Fetching data...
+      </pre>
     </div>
   )
 
+}
+
+Response.propTypes = {
+  resource: PropTypes.string,
+  contexts: PropTypes.array,
+  data: PropTypes.object
 }
 
 export default Response

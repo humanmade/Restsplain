@@ -27,25 +27,24 @@ export const getNamespacedRoutes = (routes) => Object.keys( routes )
 
 export const getRoutesByNamespace = (schema, namespace) => getNamespacedRoutes(schema)[namespace]
 
-export const getRouteParams = (route) => route
-  .split(/(.*?\(\?P[^\)]+\))/)
-  .filter(Boolean)
-  .map( (p) => {
-    let [path, name, match] = p.split(/([^\)]+)\(\?P<([a-z0-9]+)>([^\)]+)\)/).filter(Boolean)
-    return name && { path, name, match }
-  } )
-  .filter(Boolean)
-
 export const getParamType = (match) => {
   switch(match) {
     case '[\\d]+':
       return 'integer'
     case '[\\w]+':
-      return 'string'
     case '[\\w-]+':
       return 'string'
     default:
       return match
+  }
+}
+
+export const getExampleData = (type) => {
+  switch(type) {
+    case 'integer':
+      return '123'
+    default:
+      return 'example'
   }
 }
 
@@ -71,8 +70,18 @@ export const getTypeString = (arg) => {
     case 'array':
       return (arg.items && `${arg.items.type}[]`) || arg.type
     case 'string':
-      return (arg.enum && `enum:\n${arg.enum.join(',\n')}`) || arg.type
+      return (arg.enum && `enum:\n\n${arg.enum.join(',\n')}`) || arg.type
     default:
       return arg.type
   }
 }
+
+export const getRouteParams = (route) => route
+  .split(/(.*?\(\?P[^\)]+\))/)
+  .filter(Boolean)
+  .map( (p) => {
+    let [path, name, match] = p.split(/([^\)]+)\(\?P<([a-z0-9]+)>([^\)]+)\)/).filter(Boolean)
+    let example = getExampleData(getParamType(match))
+    return name && { path, name, match, example }
+  } )
+  .filter(Boolean)

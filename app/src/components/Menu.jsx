@@ -9,6 +9,8 @@ const Menu = ({ namespaces, routes }) => {
       {
         // Menu
         //  - Pages
+        //  - Auths
+        //  - Errors
         //  - Namespaces
         //    - Version picker
         //    - Endpoints by method group

@@ -3,8 +3,6 @@ import { getRouteParams, getParamType } from '../../helpers/transform'
 
 const RouteParameters = ({ route }) => {
 
-  console.log(route)
-
   let params = getRouteParams(route)
 
   return !!params.length && (
