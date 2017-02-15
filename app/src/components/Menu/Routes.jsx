@@ -16,7 +16,8 @@ const Routes = ({ routes }) => {
 Routes.propTypes = {
   routes: PropTypes.arrayOf( PropTypes.shape( {
     path: PropTypes.string.isRequired,
-    relative: PropTypes.string.isRequired
+    relative: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired
   } ) ).isRequired
 }
 

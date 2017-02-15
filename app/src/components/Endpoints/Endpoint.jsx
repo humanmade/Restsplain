@@ -24,25 +24,32 @@ const Endpoint = ({ route }) => {
           <RouteParameters route={route.self} />
         </div>
 
+        { route.description && <p className="restsplain-route-description">{route.description}</p> }
+
         { route.endpoints.map( (endpoint, id) => (
-          <div key={id} className="restspain-endpoint-data">
+          <div key={id} className="restsplain-endpoint-data">
             <h2
               id={makeID([...endpoint.methods])}
             >
               {endpoint.methods.join(', ')}
             </h2>
 
+            { endpoint.description && <p className="restsplain-endpoint-description">{endpoint.description}</p> }
+
             <Parameters args={endpoint.args || {}} />
 
             <Curl methods={endpoint.methods} resource={resource} args={endpoint.args || {}} />
 
-            { endpoint.methods.includes('GET') && route._links && route._links.self &&
-              <ResponseContainer resource={route._links.self} />
-            }
-
             {
-              // Try fetching yourself?
-              // arg builder?
+              // Fetch the response if...
+
+              // is a GET request
+              endpoint.methods.includes('GET') &&
+              // has a defined self link
+              route._links && route._links.self &&
+              // has no required params
+              ! Object.keys( endpoint.args ).filter( arg => endpoint.args[arg].required ).length &&
+              <ResponseContainer resource={route._links.self} />
             }
 
           </div>

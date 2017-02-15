@@ -14,17 +14,40 @@
 
 namespace Restsplain;
 
+use WP_REST_Response;
+
 define( 'RESTSPLAIN_DIR', __DIR__ );
 define( 'RESTSPLAIN_URL', plugins_url( '', __FILE__ ) );
 
+function enqueue_scripts() {
+
+	$manifest = file_get_contents( RESTSPLAIN_DIR . '/app/build/asset-manifest.json' );
+	$files    = json_decode( $manifest );
+
+	if ( $files ) {
+
+		wp_enqueue_script( 'restsplain-js', RESTSPLAIN_URL . '/app/build/' . $files['main.js'], array(), null, true );
+		wp_localize_script( 'restsplain-js', 'restsplain', array(
+			'css'      => RESTSPLAIN_URL . '/app/build/' . $files['main.css'],
+			'restbase' => get_rest_url(),
+			'embedded' => true,
+		) );
+
+		wp_enqueue_style( 'restsplain-css', RESTSPLAIN_URL . '/app/build/' . $files['main.css'] );
+	}
+}
+
 // WP layer on top of base script
-add_action( 'init', function() {
+add_action( 'init', __NAMESPACE__ . '\init' );
 
+function init() {
 
+	$rest_url = get_rest_url();
 
-} );
+	add_rewrite_rule();
+}
 
-add_action( 'template_redirect', function( $template ) {
+add_action( 'template_redirect', function ( $template ) {
 
 	if ( is_404() && $_SERVER['REQUEST_URI'] === get_rest_url( null, '/_docs' ) ) {
 
@@ -33,35 +56,43 @@ add_action( 'template_redirect', function( $template ) {
 
 		exit;
 	}
-
 } );
 
 
+function is_docs_request() {
+	return isset( $_SERVER['X-WP-RESTSPLAIN'] );
+}
 
-add_action( 'admin_print_footer_scripts', function () {
-	?>
-	<script type="text/javascript">
-      jQuery( function ( $ ) {
-        if ( typeof tinymce !== 'undefined' ) {
-          var invalid = false;
-          tinymce.on( 'GetContent', function ( event ) {
+add_filter( 'rest_index', function ( WP_REST_Response $response ) {
 
-            console.log(event.content);
+	if ( ! is_docs_request() ) {
+		return $response;
+	}
 
-            if ( !invalid || event.content.match( /&amp;preview=/ ) ) {
-				invalid = true;
-				$('#publish').attr('disabled', 'disabled');
-            } else {
-              $('#publish').removeAttr('disabled', 'disabled');
-            }
+	$data = $response->get_data();
 
-          } );
+	// Add error examples
 
-          $('#post').on('submit.validate', function() {
 
-          });
-        }
-      } );
-	</script>
-	<?php
+	// Add pages
+
+
+	$response->set_data( $data );
+
+	return $response;
 } );
+
+
+/**
+ * Shortcode to embed the docs app in a page
+ */
+add_shortcode( 'restsplain', function() {
+	static $done = false;
+
+	if ( ! $done ) {
+		$done = true;
+		return '<div id="restsplain"></div>';
+	}
+} );
+
+

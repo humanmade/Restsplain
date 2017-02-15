@@ -1,7 +1,11 @@
 import React, { PropTypes } from 'react'
+import { Link } from 'react-router-dom'
 import Namespace from './Menu/Namespace'
+import { getNamespacedRoutes } from '../helpers/transform'
 
-const Menu = ({ namespaces, routes }) => {
+const Menu = ({ schema }) => {
+
+  let routes = getNamespacedRoutes(schema.routes)
 
   return (
 
@@ -11,16 +15,37 @@ const Menu = ({ namespaces, routes }) => {
         //  - Pages
         //  - Auths
         //  - Errors
-        //  - Namespaces
-        //    - Version picker
-        //    - Endpoints by method group
+        //  - Endpoints
       }
 
-      { namespaces &&
+      <div className="restsplain-pages">
+        <h2>Documentation</h2>
+        {
+          // TODO: Add documentation pages
+        }
+        { !!schema.errors &&
+          <div className="restsplain-errors">
+            <h3><Link to="/errors/">Errors</Link></h3>
+          </div>
+        }
+
+        { !!schema.authentication &&
+          <div className="restsplain-authentication">
+            <h3>Authentication</h3>
+            <ul>
+              {
+                // TODO: Add authentication pages
+              }
+            </ul>
+          </div>
+        }
+      </div>
+
+      { !!schema.namespaces &&
         <div className="restsplain-namespaces">
-          <h2>Namespaces</h2>
+          <h2>Endpoints</h2>
           <ul>
-            { namespaces.map( namespace => <Namespace key={namespace} namespace={namespace} routes={routes[namespace]} /> ) }
+            { schema.namespaces.map( namespace => <Namespace key={namespace} namespace={namespace} routes={routes[namespace]} /> ) }
           </ul>
         </div>
       }
@@ -30,8 +55,7 @@ const Menu = ({ namespaces, routes }) => {
 }
 
 Menu.propTypes = {
-  namespaces: PropTypes.array.isRequired,
-  routes: PropTypes.object.isRequired
+  schema: PropTypes.object.isRequired
 }
 
 export default Menu

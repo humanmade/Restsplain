@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
-import { getRouteParams } from '../../helpers/transform'
+import Highlight from 'react-highlight'
+import { getRouteParams, getExampleData } from '../../helpers/transform'
 import { getRouteReadable } from '../../helpers/formatting'
 
 const Curl = ({ methods, resource, args = {} }) => {
@@ -13,12 +14,19 @@ const Curl = ({ methods, resource, args = {} }) => {
       .reduce( (val, p) => p.example, 'example' )
     )
 
+  // Required args
+  let required = Object.keys( args )
+    .filter( arg => args[arg].required )
+    .map( arg => `${arg}=${getExampleData(args[arg].type)}` )
+
+  let exampleParams = required.length ? `\n  --data "${required.join('&')}"` : ''
+
   return (
     <div className="restsplain-endpoint-curl">
       <h3>CURL example</h3>
-      <pre>
-        {`curl -X${methods[0]} ${exampleResource}`}
-      </pre>
+      <Highlight className="bash">
+        {`curl -X${methods[0]} ${exampleResource} ${exampleParams}`}
+      </Highlight>
     </div>
   )
 }

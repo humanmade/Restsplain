@@ -10,7 +10,6 @@ import { createStore, applyMiddleware } from 'redux'
 // Redux
 import reducers from './data/reducers'
 import config from './data/config'
-//import schema from './data/schema.json'
 
 // Components
 import App from './App'
@@ -35,5 +34,5 @@ ReactDOM.render(
       <App />
     </Router>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('restsplain')
 )

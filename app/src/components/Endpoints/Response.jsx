@@ -1,30 +1,36 @@
 import React, { PropTypes } from 'react'
+import Inspector from 'react-json-inspector'
+import Highlight from 'react-highlight'
 
-const Response = ({ resource, data = false, fetchResource }) => {
+const Response = ({ response = false, fetchResource }) => {
 
   // fetch endpoint
-  if ( ! data ) {
+  if ( response === false ) {
     fetchResource()
   }
-
-  // render raw
-
-  // render JSON tree
 
   return (
     <div className="restsplain-endpoint-response">
       <h3>Response</h3>
-      <pre className="restsplain-endpoint-response-raw">
-        { data ? JSON.stringify(data, null, '  ') : 'Fetching data...' }
-      </pre>
+        <nav>
+          <a onClick={() => {}}>Raw</a>
+          <a onClick={() => {}}>Json</a>
+        </nav>
+        { response.view === 'raw' &&
+          <Highlight className="json">
+           { response.data ? JSON.stringify(response.data, null, '  ') : 'Fetching data...' }
+          </Highlight>
+        }
+        { response.view === 'json' && (
+          response.data ? <Inspector data={response.data} /> : 'Fetching data...'
+        ) }
     </div>
   )
 
 }
 
 Response.propTypes = {
-  resource: PropTypes.string,
-  contexts: PropTypes.array,
+  fetchResource: PropTypes.func.isRequired,
 }
 
 export default Response
