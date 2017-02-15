@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import EndpointResponse from '../../containers/EndpointResponse'
+import ResponseContainer from '../../containers/ResponseContainer'
 import RouteParameters from './RouteParameters'
 import Parameters from './Parameters'
 import Curl from './Curl'
@@ -8,9 +8,8 @@ import config from '../../data/config'
 
 const Endpoint = ({ route }) => {
 
-  let resource = (route._links && route._links.self) || `${trim(config.restbase, '/')}${route.self}`
-
-  console.log(route)
+  let resource = (route._links && route._links.self) ||
+                 `${trim(config.restbase, '/')}${route.self}`
 
   return (
       <section className="restsplain-endpoint" >
@@ -37,8 +36,8 @@ const Endpoint = ({ route }) => {
 
             <Curl methods={endpoint.methods} resource={resource} args={endpoint.args || {}} />
 
-            { endpoint.methods.join('') === 'GET' &&
-              <EndpointResponse resource={resource} contexts={(endpoint.args.context && endpoint.args.context.enum) || ['view']} />
+            { endpoint.methods.includes('GET') && route._links && route._links.self &&
+              <ResponseContainer resource={route._links.self} />
             }
 
             {

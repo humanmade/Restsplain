@@ -3,24 +3,27 @@
  */
 
 import { combineReducers } from 'redux'
+import * as types from './actionTypes'
 
 function schema( state = {}, action ) {
-  console.log( 'schema reducer', state, action )
   switch( action.type ) {
-    case 'SET_SCHEMA':
+    case types.GET_SCHEMA:
       return Object.assign( {}, state, action.schema )
+    case types.GET_SCHEMA_ERROR:
+      return { error: action.error }
     default:
       return state
   }
 }
 
 function responses( state = {}, action ) {
-  console.log( 'responses reducer', state, action )
   switch( action.type ) {
-    case 'ADD_RESPONSE':
+    case types.GET_RESOURCE_RESPONSE:
       return Object.assign( {}, state, { [action.route]: action.data } )
-    case 'GET_RESPONSE':
-      return state[action.route] || false
+    case types.GET_RESOURCE_RESPONSE_ERROR:
+      return Object.assign( {}, state, { [action.route]: { error: action.error } } )
+    case types.RECEIVE_RESOURCE_RESPONSE:
+      return Object.assign( {}, state, { [action.route]: action.data } )
     default:
       return state
   }

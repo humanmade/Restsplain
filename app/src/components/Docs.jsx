@@ -4,11 +4,12 @@ import Menu from './Menu'
 import Endpoints from './Endpoints'
 import { getNamespacedRoutes } from '../helpers/transform'
 
-const Docs = ({ schema }) => {
+const Docs = ({ schema = {}, fetchSchema }) => {
 
-  console.log( 'schema', schema )
+  if ( ! schema.name ) {
 
-  if ( ! schema ) {
+    fetchSchema()
+
     return (
       <div className="restsplain restsplain-no-data">
         <h2>Fetching schema&hellip;</h2>
@@ -46,7 +47,7 @@ const Docs = ({ schema }) => {
 }
 
 Docs.propTypes = {
-  schema: PropTypes.object.isRequired,
+  schema: PropTypes.object,
 }
 
 export default Docs

@@ -1,8 +1,11 @@
 import React, { PropTypes } from 'react'
 
-const Response = ({ resource, contexts = ['view'], data = {} }) => {
+const Response = ({ resource, data = false, fetchResource }) => {
 
   // fetch endpoint
+  if ( ! data ) {
+    fetchResource()
+  }
 
   // render raw
 
@@ -12,7 +15,7 @@ const Response = ({ resource, contexts = ['view'], data = {} }) => {
     <div className="restsplain-endpoint-response">
       <h3>Response</h3>
       <pre className="restsplain-endpoint-response-raw">
-        Fetching data...
+        { data ? JSON.stringify(data, null, '  ') : 'Fetching data...' }
       </pre>
     </div>
   )
@@ -22,7 +25,6 @@ const Response = ({ resource, contexts = ['view'], data = {} }) => {
 Response.propTypes = {
   resource: PropTypes.string,
   contexts: PropTypes.array,
-  data: PropTypes.object
 }
 
 export default Response

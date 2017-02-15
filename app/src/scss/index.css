@@ -51,3 +51,9 @@ td {
 tbody tr:nth-child(2n) {
   background: rgba(0,0,0,.05);
 }
+
+.restsplain pre {
+  width: 100%;
+  overflow: auto;
+  max-height: 300px;
+}

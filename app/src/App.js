@@ -1,10 +1,11 @@
 import React from 'react'
-import Schema from './containers/Schema'
+import DocsContainer from './containers/DocsContainer'
+import config from './data/config'
 
 const App = () => {
   return (
     <div className="App">
-      <Schema />
+      <DocsContainer base={config.restbase} />
     </div>
   )
 }
