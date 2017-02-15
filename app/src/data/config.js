@@ -6,7 +6,8 @@
 const config = Object.assign( {}, ( window && window.restsplain ) || {}, {
   basename: ( location && `${location.protocol}//${location.hostname}${location.port.replace(/(^)/, ':')}` ) || '/',
   restbase: 'http://wordpress-develop.dev/wp-json/',
-  embedded: false
+  embedded: false,
+  codetheme: 'monokai-sublime'
 } )
 
 export default config

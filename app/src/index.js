@@ -16,6 +16,7 @@ import App from './App'
 
 // CSS
 import './scss/index.css'
+import '../node_modules/highlight.js/styles/monokai-sublime.css'
 
 // Redux store
 const logger = createLogger()
