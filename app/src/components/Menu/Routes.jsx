@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 const Routes = ({ routes }) => {
   return(
     <ul>
       { routes.map( route => (
         <li key={route.path}>
-          <Link to={route.url}>{route.relative}</Link>
+          <NavLink exact activeClassName="active" to={`/endpoints${route.url}`}>{route.relative}</NavLink>
         </li>
       ) ) }
     </ul>

@@ -18,3 +18,5 @@ export const getResourceResponseError = (response) => ({
   type: types.GET_RESOURCE_RESPONSE_ERROR,
   response
 })
+
+export const setOption = (option, value) => ({ type: types.SET_OPTION, option, value })

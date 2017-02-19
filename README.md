@@ -1,2 +1,5 @@
 # Restsplain
-REST API documentation generator
+
+A WordPress REST API documentation generator.
+
+

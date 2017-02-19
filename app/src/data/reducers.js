@@ -27,9 +27,19 @@ function responses( state = {}, action ) {
   }
 }
 
+function options( state = {}, action ) {
+  switch( action.type ) {
+    case types.SET_OPTION:
+      return Object.assign( {}, state, { [action.option]: action.value } )
+    default:
+      return state
+  }
+}
+
 const reducers = combineReducers( {
   schema,
-  responses
+  responses,
+  options
 } )
 
 export default reducers

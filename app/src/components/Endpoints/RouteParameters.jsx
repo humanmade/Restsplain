@@ -8,22 +8,24 @@ const RouteParameters = ({ route }) => {
   return !!params.length && (
     <div className="restsplain-endpoint-url-params">
       <h4>Route Parameters</h4>
-      <table>
-        <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-        </tr>
-        </thead>
-        <tbody>
-        { params.map( param => (
-          <tr key={param.name}>
-            <td>:{param.name}</td>
-            <td><code>{getParamType(param.match)}</code></td>
+      <div className="restsplain-table-wrap">
+        <table>
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
           </tr>
-        ) ) }
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+          { params.map( param => (
+            <tr key={param.name}>
+              <td>:{param.name}</td>
+              <td><code>{getParamType(param.match)}</code></td>
+            </tr>
+          ) ) }
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }

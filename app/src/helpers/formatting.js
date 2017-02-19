@@ -9,7 +9,6 @@ export const trim = ( str, charmap = '\\s' ) => str.replace( new RegExp( `^[${ch
 
 export const getRouteReadable = ( path ) => path.replace( /\(.*?<([a-z0-9_-]+)>.*?\)/g, ':$1' )
 
-export const getRouteURL = ( path ) => getRouteReadable(path).replace( /:/g, '' )
+export const getRouteURL = ( path ) => `${getRouteReadable(path).replace( /:/g, '' )}/`
 
 export const makeID = (strings) => strings.map( s => s.replace(/[\s\W]/g, '-').toLowerCase() ).join('-')
-

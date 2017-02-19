@@ -3,11 +3,12 @@
  * Can be overwritten by a global window object
  */
 
-const config = Object.assign( {}, ( window && window.restsplain ) || {}, {
-  basename: ( location && `${location.protocol}//${location.hostname}${location.port.replace(/(^)/, ':')}` ) || '/',
-  restbase: 'http://wordpress-develop.dev/wp-json/',
+const config = Object.assign( {}, {
+  basename: '/',
+  restBase: 'http://wordpress-develop.dev/wp-json/',
   embedded: false,
-  codetheme: 'monokai-sublime'
-} )
+  codeTheme: 'monokai-sublime',
+  logo: false
+}, ( window && window.restsplain ) || {} )
 
 export default config

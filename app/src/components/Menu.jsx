@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import Namespace from './Menu/Namespace'
 import { getNamespacedRoutes } from '../helpers/transform'
+import { isEmpty } from '../helpers/conditionals'
 
 const Menu = ({ schema }) => {
 
@@ -14,22 +15,24 @@ const Menu = ({ schema }) => {
         // Menu
         //  - Pages
         //  - Auths
-        //  - Errors
         //  - Endpoints
       }
 
       <div className="restsplain-pages">
-        <h2>Documentation</h2>
-        {
-          // TODO: Add documentation pages
-        }
-        { !!schema.errors &&
-          <div className="restsplain-errors">
-            <h3><Link to="/errors/">Errors</Link></h3>
+        { ! isEmpty( schema.documentation ) &&
+          <div className="restsplain-authentication">
+            <h2>Documentation</h2>
+            <ul>
+              { schema.documentation.map( page => (
+                <li key={page.slug}>
+                  <NavLink exact activeClassName="active" to={`/docs/${page.slug}/`}>{page.title}</NavLink>
+                </li>
+              ) ) }
+            </ul>
           </div>
         }
 
-        { !!schema.authentication &&
+        { ! isEmpty( schema.authentication ) &&
           <div className="restsplain-authentication">
             <h3>Authentication</h3>
             <ul>
@@ -41,7 +44,7 @@ const Menu = ({ schema }) => {
         }
       </div>
 
-      { !!schema.namespaces &&
+      { ! isEmpty( schema.namespaces ) &&
         <div className="restsplain-namespaces">
           <h2>Endpoints</h2>
           <ul>
@@ -50,7 +53,6 @@ const Menu = ({ schema }) => {
         </div>
       }
     </nav>
-
   )
 }
 

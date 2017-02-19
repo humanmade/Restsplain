@@ -1,0 +1,6 @@
+@mixin padding($large: 30px, $small: 15px) {
+  padding: $small;
+  @media only screen and (min-width: 500px) {
+    padding: $large;
+  }
+}

@@ -1,16 +1,43 @@
 import React, { PropTypes } from 'react'
-import { Link } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 import Menu from './Menu'
 import Endpoints from './Endpoints'
+import Pages from './Pages'
+import ResponseContainer from '../containers/ResponseContainer'
+import config from '../data/config'
 
 const Docs = ({ schema = {}, fetchSchema }) => {
+
+  let classNames = [
+    'restsplain'
+  ]
+
+  if ( config.embedded ) {
+    classNames.push( 'restsplain-embedded' )
+  }
+
+  if ( ( schema.code && schema.message ) || schema.error ) {
+
+    classNames.push( 'restsplain-no-data' )
+
+    return (
+      <div className={classNames.join(' ')}>
+        <h1>Failed Fetching Schema</h1>
+        <p>The API may be down or not currently enabled.</p>
+        { schema.error && <p className="restsplain-error">{schema.error}</p> }
+        <div className="restsplain-loader"></div>
+      </div>
+    )
+  }
 
   if ( ! schema.name ) {
 
     fetchSchema()
 
+    classNames.push( 'restsplain-no-data' )
+
     return (
-      <div className="restsplain restsplain-no-data">
+      <div className={classNames.join(' ')}>
         <h1>Fetching Schema&hellip;</h1>
         <div className="restsplain-loader"></div>
       </div>
@@ -18,24 +45,35 @@ const Docs = ({ schema = {}, fetchSchema }) => {
   }
 
   return (
-    <div className="restsplain">
+    <div className={classNames.join(' ')}>
 
       <div className="restsplain-sidebar">
-        <div className="restsplain-header">
-          <h1>
-            <Link to="/">
-              {`${schema.name} API`}
-            </Link>
-          </h1>
-        </div>
+        { !config.embedded &&
+          <div className="restsplain-header">
+            <h1>
+              <Link to="/">
+                { config.logo && <img src={config.logo} alt={`${schema.name} API Docs`} /> }
+                <span className="restsplain-title">{`${schema.name}`}</span>
+                {' '}
+                API
+              </Link>
+            </h1>
+          </div>
+        }
 
         <Menu schema={schema} />
       </div>
 
       <div className="restsplain-docs">
+        <Route exact path="/" render={ () => <h2>Documentation</h2> } />
+        <Pages pages={schema.documentation} />
+        <Route exact path="/" render={ () => <h2>Endpoints</h2> } />
         <Endpoints routes={schema.routes} />
       </div>
 
+      <ResponseContainer />
+
+      <div className="restsplain-colophon">made with ❤️ by <a href="https://hmn.md/">Human Made</a></div>
     </div>
   )
 }

@@ -1,16 +1,21 @@
 import { connect } from 'react-redux'
 import { fetchResourceResponse } from '../data/api'
-import Response from '../components/Endpoints/Response'
+import { setOption } from '../data/actions'
+import Response from '../components/Response'
 
-const mapStateToProps = (state, ownProps) => ({
-  response: state.responses[ownProps.resource],
+const mapStateToProps = ( state, ownProps ) => ({
+  resource: state.options.resource,
+  response: state.responses[ state.options.resource ],
+  view    : state.options.view,
   ...ownProps
 })
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  fetchResource: () => dispatch(fetchResourceResponse(ownProps.resource))
+const mapDispatchToProps = ( dispatch ) => ({
+  fetchResource: ( resource ) => dispatch( fetchResourceResponse( resource ) ),
+  setView      : ( view ) => dispatch( setOption( 'view', view ) ),
+  setResource  : ( resource ) => dispatch( setOption( 'resource', resource ) )
 })
 
-const ResponseContainer = connect(mapStateToProps, mapDispatchToProps)(Response)
+const ResponseContainer = connect( mapStateToProps, mapDispatchToProps )( Response )
 
 export default ResponseContainer
