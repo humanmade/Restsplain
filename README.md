@@ -1,10 +1,10 @@
-<table width="100%">
+<table width="100%" style="width:100%">
 	<tr>
-		<td align="left" width="70">
+		<td align="left" width="70%">
 			<h1 style="border:0;margin-bottom:0;">Restsplain</h1>
 			Super fast WordPress REST API docs that update with your site.
 		</td>
-		<td align="right" width="20%">
+		<td align="right" width="30%">
 			
 		</td>
 	</tr>
@@ -26,7 +26,7 @@ blazing fast documentation site.
 2. Automatic discovery and display of all custom endpoints
 3. Make API requests direct from the documentation!
 
-![https://www.dropbox.com/s/4ivq9a0x43rtj8o/Screenshot%202017-02-20%2001.23.08.png?dl=1](Restsplain running on TwentySeventeen)
+![Restsplain running on TwentySeventeen](https://hmn.md/uploads/sites/2/2017/02/Screenshot-2017-02-20-01.23.08.png)
 
 ## Installation
 
