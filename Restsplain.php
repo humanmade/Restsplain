@@ -214,7 +214,7 @@ function filter_rest_index( WP_REST_Response $response ) {
 	foreach ( $data['authentication'] as $auth => $auth_data ) {
 		if ( is_string( $data['authentication'][ $auth ] ) ) {
 			$data['authentication'][ $auth ] = array(
-				'url'         => $data['authentication'][ $auth ],
+				'self'        => $data['authentication'][ $auth ],
 				'description' => apply_filters( "restsplain_{$auth}", '' ),
 			);
 		}
