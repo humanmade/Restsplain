@@ -84,6 +84,20 @@ namespace Restsplain;
 add_route_description( '/wp/v2/users', __( 'Fetch or create Users.' ) );
 ```
 
+#### Auth descriptions
+
+Just as with the route descriptions you add a description to your authentications
+with the `add_auth_description( $auth, $description )` helper function.
+
+```php
+<?php
+namespace Restsplain;
+add_auth_description( 'oauth1', __( 
+	'Oauth1 Authentication is available. 
+	Find out more on how to implement it at https://github.com/WP-API/OAuth1.' 
+) );
+```
+
 ### Theming
 
 By default Restsplain is written to use as much of your site's existing styles

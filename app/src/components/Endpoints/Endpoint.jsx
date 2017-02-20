@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import RouteParameters from './RouteParameters'
 import Parameters from './Parameters'
 import Links from './Links'
+import MaybeHTML from '../MaybeHTML'
 import CodeContainer from '../../containers/CodeContainer'
 import { trim, getRouteReadable, makeID, getRouteURL } from '../../helpers/formatting'
 import { isEmpty } from '../../helpers/conditionals'
@@ -22,7 +23,7 @@ const Endpoint = ( { route, excerpt = false } ) => {
           <NavLink to={`/endpoints${getRouteURL( route.self )}`}>{getRouteReadable( route.self )}</NavLink>
         </h3>
 
-        { route.description && <p className="restsplain-route-description">{route.description}</p> }
+        { route.description && <MaybeHTML className="restsplain-route-description" text={route.description} /> }
       </section>
     )
   }
@@ -34,7 +35,7 @@ const Endpoint = ( { route, excerpt = false } ) => {
         {getRouteReadable( route.self )}
       </h1>
 
-      { route.description && <p className="restsplain-route-description">{route.description}</p> }
+      { route.description && <MaybeHTML className="restsplain-route-description" text={route.description} /> }
 
       <div className="restsplain-endpoint-url">
         <h3>Resource URL</h3>
@@ -80,7 +81,7 @@ const Endpoint = ( { route, excerpt = false } ) => {
               {endpoint.methods.join( ', ' )}
             </h2>
 
-            { endpoint.description && <p className="restsplain-endpoint-description">{endpoint.description}</p> }
+            { endpoint.description && <MaybeHTML className="restsplain-endpoint-description" text={endpoint.description} /> }
 
             { ! isEmpty(endpoint.args) && <Parameters args={endpoint.args}/> }
 
