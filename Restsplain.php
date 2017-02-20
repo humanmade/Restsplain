@@ -153,7 +153,7 @@ function template_include( $template ) {
 /**
  * Decorate the schema if it's a request from our react app
  */
-add_filter( 'rest_index', __NAMESPACE__ . '\filter_rest_index' );
+add_filter( 'rest_index', __NAMESPACE__ . '\filter_rest_index', 100 );
 
 /**
  * @param \WP_REST_Response $response
@@ -208,6 +208,19 @@ function filter_rest_index( WP_REST_Response $response ) {
 	// Append route descriptions
 	foreach ( $data['routes'] as $route => $route_data ) {
 		$data['routes'][ $route ]['description'] = apply_filters( "restsplain_{$route}", '' );
+	}
+
+	// Append auth descriptions
+	foreach ( $data['authentication'] as $auth => $auth_data ) {
+		if ( is_string( $data['authentication'][ $auth ] ) ) {
+			$data['authentication'][ $auth ] = array(
+				'self'        => $data['authentication'][ $auth ],
+				'description' => apply_filters( "restsplain_{$auth}", '' ),
+			);
+		}
+		if ( is_array( $data['authentication'][ $auth ] ) ) {
+			$data['authentication'][ $auth ]['description'] = apply_filters( "restsplain_{$auth}", '' );
+		}
 	}
 
 	$data = apply_filters( 'restsplain_schema', $data );

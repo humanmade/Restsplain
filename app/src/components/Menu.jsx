@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { NavLink } from 'react-router-dom'
 import Namespace from './Menu/Namespace'
 import { getNamespacedRoutes } from '../helpers/transform'
+import { capitalise } from '../helpers/formatting'
 import { isEmpty } from '../helpers/conditionals'
 
 const Menu = ({ schema }) => {
@@ -34,11 +35,13 @@ const Menu = ({ schema }) => {
 
         { ! isEmpty( schema.authentication ) &&
           <div className="restsplain-authentication">
-            <h3>Authentication</h3>
+            <h2>Authentication</h2>
             <ul>
-              {
-                // TODO: Add authentication pages
-              }
+              { Object.keys( schema.authentication ).map( auth => (
+                <li key={auth}>
+                  <NavLink exact activeClassName="active" to={`/auths/${auth}/`}>{capitalise(auth)}</NavLink>
+                </li>
+              ) ) }
             </ul>
           </div>
         }

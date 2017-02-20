@@ -200,6 +200,22 @@ function add_route_description( $route, $description ) {
 	} );
 }
 
+/**
+ * Adds a description field to auth data
+ *
+ * $auth should just be the registered name eg. `oauth1` for example
+ * and correspond to the object keys in the schema found at
+ * /wp-json/
+ *
+ * @param string $auth
+ * @param string $description
+ */
+function add_auth_description( $auth, $description ) {
+	add_filter( "restsplain_{$auth}", function () use ( $description ) {
+		return $description;
+	} );
+}
+
 // Add basic post type descriptions
 foreach ( get_post_types( array( 'show_in_rest' => true ), 'objects' ) as $post_type ) {
 	add_route_description( "/wp/v2/{$post_type->rest_base}",
@@ -255,3 +271,20 @@ add_route_description( '/wp/v2/comments/(?P<id>[\d]+)', __( 'Fetch or edit a sin
 
 // Settings
 add_route_description( '/wp/v2/settings', __( 'Fetch or update registered settings.', 'restsplain' ) );
+
+// Official Oauth1 plugin
+add_auth_description( 'oauth1',
+	'<p>Oauth1 Authentication is available.</p> 
+	<p>Find out more on how to implement it at 
+		<a href="https://github.com/WP-API/OAuth1">the official plugin page</a>.
+	</p>'
+);
+
+// Broker
+add_auth_description( 'broker',
+	'<p>The official App Registry for WordPress.</p> 
+	<p>You can register your application once and all WordPress sites
+	    using the Oauth 1.0a plugin will be able to securely authenticate
+	    with it.</p>
+	<p>Learn more at the <a href="https://apps.wp-api.org/">App Registry</a>.</p>'
+);

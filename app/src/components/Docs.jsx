@@ -3,6 +3,7 @@ import { Route, Link } from 'react-router-dom'
 import Menu from './Menu'
 import Endpoints from './Endpoints'
 import Pages from './Pages'
+import Auths from './Auths'
 import ResponseContainer from '../containers/ResponseContainer'
 import config from '../data/config'
 
@@ -67,6 +68,8 @@ const Docs = ({ schema = {}, fetchSchema }) => {
       <div className="restsplain-docs">
         <Route exact path="/" render={ () => <h2>Documentation</h2> } />
         <Pages pages={schema.documentation} />
+        <Route exact path="/" render={ () => <h2>Authentication</h2> } />
+        <Auths auths={schema.authentication} />
         <Route exact path="/" render={ () => <h2>Endpoints</h2> } />
         <Endpoints routes={schema.routes} />
       </div>
