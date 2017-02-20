@@ -12,3 +12,5 @@ export const getRouteReadable = ( path ) => path.replace( /\(.*?<([a-z0-9_-]+)>.
 export const getRouteURL = ( path ) => `${getRouteReadable(path).replace( /:/g, '' )}/`
 
 export const makeID = (strings) => strings.map( s => s.replace(/[\s\W]/g, '-').toLowerCase() ).join('-')
+
+export const capitalise = text => text.substr(0,1).toUpperCase() + text.substr(1)

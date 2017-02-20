@@ -51,7 +51,7 @@ const Endpoint = ( { route, excerpt = false } ) => {
             className={`method-${method.toLowerCase()}`}
             activeClassName="active"
             isActive={(match, location) => {
-              return ( method === 'GET' && ! location.hash ) || location.hash.substr(1) === method
+              return ( method === route.methods[0] && ! location.hash ) || location.hash.substr(1) === method
             }}
             to={{
               pathname: `/endpoints${getRouteURL( route.self )}`,
@@ -68,7 +68,7 @@ const Endpoint = ( { route, excerpt = false } ) => {
           return null
         }
 
-        if ( !hash && !endpoint.methods.includes( 'GET' ) ) {
+        if ( !hash && !endpoint.methods.includes( route.methods[0] ) ) {
           return null
         }
 

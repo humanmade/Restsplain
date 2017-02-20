@@ -73,12 +73,21 @@
     margin: 20px 0;
   }
 
-  &-code {
+  &-pre {
     white-space: pre;
+  }
+
+  table {
+    width: 100%;
   }
 
   th, td {
     vertical-align: top;
+  }
+
+  td {
+    & :first-child { margin-top: 0; }
+    & :last-child { margin-bottom: 0; }
   }
 
   dl {
