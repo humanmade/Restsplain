@@ -4,6 +4,7 @@ import Highlight from 'react-highlight'
 import Links from './Endpoints/Links'
 import { trim } from '../helpers/formatting'
 import { scrollTo } from '../helpers/dom'
+import { isEmpty } from '../helpers/conditionals'
 import config from '../data/config'
 
 class Response extends Component {
@@ -35,7 +36,7 @@ class Response extends Component {
     // Extract links from the view if present
     let links, item = false
 
-    if ( response && response.data ) {
+    if ( response && response.data && ! isEmpty(response.data) ) {
       item = response.data
       if ( Array.isArray( item ) ) {
         item = item[ 0 ]

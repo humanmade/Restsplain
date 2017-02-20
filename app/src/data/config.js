@@ -7,7 +7,7 @@ const config = Object.assign( {}, {
   basename: '/',
   restBase: 'http://wordpress-develop.dev/wp-json/',
   embedded: false,
-  codeTheme: 'monokai-sublime',
+  codeTheme: 'tomorrow night',
   logo: false
 }, ( window && window.restsplain ) || {} )
 

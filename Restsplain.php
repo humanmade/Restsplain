@@ -71,7 +71,7 @@ function enqueue_scripts() {
 		'restBase'  => get_rest_url(),
 		'embedded'  => get_docs_base() !== get_default_docs_base(),
 		'nonce'     => wp_create_nonce( 'wp_rest' ),
-		'codeTheme' => 'monokai-sublime', // Any of the themes shipped with highlight.js
+		'codeTheme' => 'Tomorrow Night', // Any of the themes shipped with highlight.js
 		'logo'      => $logo_url,
 	);
 
