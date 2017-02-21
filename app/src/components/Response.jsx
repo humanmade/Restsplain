@@ -46,8 +46,8 @@ class Response extends Component {
     }
 
     return (
-      <div className="restsplain-response">
-        <h2>{l10n('response')}</h2>
+      <section className="restsplain-response">
+        <h1>{l10n('response')}</h1>
 
         <form onSubmit={e => this.handleSubmit( e )}>
           <input
@@ -89,7 +89,7 @@ class Response extends Component {
             ) }
           </div>
         }
-      </div>
+      </section>
     )
   }
 }

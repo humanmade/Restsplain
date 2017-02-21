@@ -49,7 +49,7 @@ const Docs = ({ schema = {}, fetchSchema }) => {
   return (
     <div className={classNames.join(' ')}>
 
-      <div className="restsplain-sidebar">
+      <nav className="restsplain-sidebar">
         { !config.embedded &&
           <div className="restsplain-header">
             <h1>
@@ -64,20 +64,20 @@ const Docs = ({ schema = {}, fetchSchema }) => {
         }
 
         <Menu schema={schema} />
-      </div>
+      </nav>
 
-      <div className="restsplain-docs">
+      <section className="restsplain-docs">
         <Route exact path="/" render={ () => <h2>{l10n('documentation')}</h2> } />
         <Pages pages={schema.pages} />
         <Route exact path="/" render={ () => <h2>{l10n('authentication')}</h2> } />
         <Auths auths={schema.authentication} />
         <Route exact path="/" render={ () => <h2>{l10n('endpoints')}</h2> } />
         <Endpoints routes={schema.routes} />
-      </div>
+      </section>
 
       <ResponseContainer />
 
-      <div className="restsplain-colophon">{l10n('madeWithLove')} <a href="https://hmn.md/">Human Made</a></div>
+      <footer className="restsplain-colophon">{l10n('madeWithLove')} <a href="https://hmn.md/">Human Made</a></footer>
     </div>
   )
 }

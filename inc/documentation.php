@@ -277,11 +277,11 @@ add_default_page( '/wp/v2/settings', __( 'Fetch or update registered settings.',
 
 // Cookie auth
 add_default_page( 'cookie', array(
-	'title'   => __( 'Cookie', 'restsplain' ),
+	'title'   => __( 'Cookie Authentication', 'restsplain' ),
 	'excerpt' => __( 'Built-in cookie authentication.', 'restsplain' ),
 	'content' => '
 	<p>Cookie authentication is baked into WordPress by default. There are a couple of steps you need to take in your app to use it.</p> 
-	<h2>REST API Nonce</h2>
+	<h2>The REST API Nonce</h2>
 	<p>While you can make requests against the API without any credentials you won\'t be able to perform any actions that require permission.</p>
 	<p>By sending a valid nonce in the header of your requests you can take advantage of endpoints such as <code>/wp/v2/users/me</code> to get data about the current user.</p>
 	<p><strong>Note:</strong> if you send an invalid nonce even to an endpoint that requires no credentials you will gt an error message back.</p>
@@ -328,21 +328,29 @@ add_action( \'enqueue_scripts\', function() use ( $nonce ) {
   .then( function( data ) { console.log( data ) } )</code></pre>',
 ) );
 
-// Official Oauth1 plugin
-add_default_page( 'oauth1', array(
-	'title'   => __( 'Oauth 1.0a', 'restsplain' ),
-	'excerpt' => __( 'Endpoints for authenticating requests with Oauth 1.0a', 'restsplain' ),
-	'content' => '
-	<p>Oauth1 Authentication is available.</p> 
-	<p>Find out more on how to implement it at <a href="https://github.com/WP-API/OAuth1">the official plugin page</a>.</p>',
-) );
+if ( function_exists( 'rest_oauth1_init' ) ) {
 
-// Broker
-add_default_page( 'broker', array(
-	'title'   => __( 'Broker', 'restsplain' ),
-	'excerpt' => __( 'Endpoint URL and information on the WordPress App Registry.', 'restsplain' ),
-	'content' => '
-	<p>The official App Registry for WordPress.</p> 
-	<p>You can register your application once and all WordPress sites using the Oauth 1.0a plugin will be able to securely authenticate with it.</p>
-	<p>Learn more at <a href="https://apps.wp-api.org/">apps.wp-api.org</a>.</p>',
-) );
+	// Official Oauth1 plugin
+	add_default_page( 'oauth1', array(
+		'title'   => __( 'Oauth 1.0a', 'restsplain' ),
+		'excerpt' => __( 'Endpoints for authenticating requests with Oauth 1.0a', 'restsplain' ),
+		'content' => '
+		<p>Oauth1 Authentication is available.</p> 
+		<p>Find out more on how to implement it at <a href="https://github.com/WP-API/OAuth1">the official plugin page</a>.</p>',
+	) );
+
+}
+
+if ( function_exists( 'rest_broker_register_routes' ) ) {
+
+	// Broker
+	add_default_page( 'broker', array(
+		'title'   => __( 'Broker', 'restsplain' ),
+		'excerpt' => __( 'Endpoint URL and information on the WordPress App Registry.', 'restsplain' ),
+		'content' => '
+		<p>The official App Registry for WordPress.</p> 
+		<p>You can register your application once and all WordPress sites using the Oauth 1.0a plugin will be able to securely authenticate with it.</p>
+		<p>Learn more at <a href="https://apps.wp-api.org/">apps.wp-api.org</a>.</p>',
+	) );
+
+}

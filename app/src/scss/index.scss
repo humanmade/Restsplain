@@ -24,16 +24,6 @@
     margin-top: 0;
   }
 
-  h1 {
-    font-size: 2rem;
-  }
-  h2 {
-    font-size: 1.5rem;
-  }
-  h3 {
-    font-size: 1.2rem;
-  }
-
   * {
     box-sizing: border-box;
   }
@@ -83,6 +73,7 @@
 
   th, td {
     vertical-align: top;
+    text-align: left;
   }
 
   td {
@@ -109,7 +100,7 @@
   &-link-data {
     margin-top: 0;
     text-transform: uppercase;
-    font-size: .6rem;
+    font-size: 60%;
     color: rgba(255,255,255,.6)
   }
 
@@ -129,6 +120,7 @@
       margin: 0;
       img {
         height: 2.5rem;
+        margin: 0 10px 0 0;
         width: auto;
         display: inline;
         vertical-align: top;
@@ -168,7 +160,7 @@
     bottom: 0;
     left: 0;
     text-align: left;
-    font-size: 0.75rem;
+    font-size: 75%;
     color: #aaa;
 
     a {
@@ -215,7 +207,7 @@
   &-endpoint {
 
     &-method-switcher a {
-      font-size: 1.5rem;
+      font-size: 150%;
       margin-right: 10px;
       &.active {
         font-weight: bold;
@@ -265,7 +257,7 @@
         display: inline-block;
         color: inherit;
         background: rgba(0,0,0,.3);
-        font-size: 0.8rem;
+        font-size: 80%;
         text-transform: uppercase;
       }
 
@@ -301,6 +293,13 @@
       max-height: calc(100vh - 12rem);
     }
 
+    pre code {
+      display: block;
+      background: none;
+      padding: 0;
+      margin: 0;
+    }
+
     nav {
       margin: 10px 0;
     }
@@ -311,7 +310,7 @@
       display: inline-block;
       color: inherit;
       background: rgba(255,255,255,.3);
-      font-size: 0.8rem;
+      font-size: 80%;
       text-transform: uppercase;
     }
 
