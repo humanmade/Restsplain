@@ -4,10 +4,11 @@ import Namespace from './Menu/Namespace'
 import { getNamespacedRoutes } from '../helpers/transform'
 import { capitalise } from '../helpers/formatting'
 import { isEmpty } from '../helpers/conditionals'
+import { l10n } from '../helpers/l10n'
 
-const Menu = ({ schema }) => {
+const Menu = ( { schema } ) => {
 
-  let routes = getNamespacedRoutes(schema.routes)
+  let routes = getNamespacedRoutes( schema.routes )
 
   return (
 
@@ -20,26 +21,27 @@ const Menu = ({ schema }) => {
       }
 
       <div className="restsplain-pages">
-        { ! isEmpty( schema.documentation ) &&
+        { !isEmpty( schema.pages ) &&
           <div className="restsplain-authentication">
-            <h2>Documentation</h2>
+            <h2>{l10n( 'documentation' )}</h2>
             <ul>
-              { schema.documentation.map( page => (
+              { schema.pages.map( page => (
                 <li key={page.slug}>
-                  <NavLink exact activeClassName="active" to={`/docs/${page.slug}/`}>{page.title}</NavLink>
+                  <NavLink exact activeClassName="active" to={`/pages/${page.slug}/`}>{page.title}</NavLink>
                 </li>
               ) ) }
             </ul>
           </div>
         }
 
-        { ! isEmpty( schema.authentication ) &&
+        { !isEmpty( schema.authentication ) &&
           <div className="restsplain-authentication">
-            <h2>Authentication</h2>
+            <h2>{l10n( 'authentication' )}</h2>
             <ul>
               { Object.keys( schema.authentication ).map( auth => (
                 <li key={auth}>
-                  <NavLink exact activeClassName="active" to={`/auths/${auth}/`}>{capitalise(auth)}</NavLink>
+                  <NavLink exact activeClassName="active"
+                           to={`/auths/${auth}/`}>{capitalise( schema.authentication[ auth ].title || auth )}</NavLink>
                 </li>
               ) ) }
             </ul>
@@ -47,11 +49,12 @@ const Menu = ({ schema }) => {
         }
       </div>
 
-      { ! isEmpty( schema.namespaces ) &&
+      { !isEmpty( schema.namespaces ) &&
         <div className="restsplain-namespaces">
-          <h2>Endpoints</h2>
+          <h2>{l10n( 'endpoints' )}</h2>
           <ul>
-            { schema.namespaces.map( namespace => <Namespace key={namespace} namespace={namespace} routes={routes[namespace]} /> ) }
+            { schema.namespaces.map( namespace => <Namespace key={namespace} namespace={namespace}
+                                                             routes={routes[ namespace ]}/> ) }
           </ul>
         </div>
       }

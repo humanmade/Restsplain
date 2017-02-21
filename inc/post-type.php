@@ -24,7 +24,7 @@ function add_post_type() {
 		'hierarchical'      => true,
 		'show_ui'           => true,
 		'show_in_nav_menus' => false,
-		'supports'          => array( 'title', 'editor', 'page-attributes' ),
+		'supports'          => array( 'title', 'editor', 'excerpt', 'page-attributes' ),
 		'menu_icon'         => 'dashicons-book-alt',
 		'show_in_rest'      => false,
 		'menu_position'     => 1000,

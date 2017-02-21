@@ -1,15 +1,25 @@
-import React, { PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
+import { highlightBlocks } from '../helpers/dom'
 
-const MaybeHTML = ({ text, className = 'restsplain-description' }) => {
+class MaybeHTML extends Component {
 
-  // Is HTML?
-  if ( text.match(/<([a-z]+).*?<\/\1/i) ) {
-    return (
-      <div className={className} dangerouslySetInnerHTML={{ __html: text }} />
-    )
+  componentDidMount() {
+    highlightBlocks(`.${this.props.className} pre code`)
   }
 
-  return <p className={className}>{text}</p>
+  render() {
+    let { text, className = 'restsplain-description' } = this.props
+
+    // Is HTML?
+    if ( text.match(/<([a-z]+).*?<\/\1/i) ) {
+      return (
+        <div className={className} dangerouslySetInnerHTML={{ __html: text }} />
+      )
+    }
+
+    return <p className={className}>{text}</p>
+  }
+
 }
 
 MaybeHTML.propTypes = {

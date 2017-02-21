@@ -57,46 +57,50 @@ add_filter( 'restsplain_docs_base', function() {
 
 ### Default content
 
-In the admin you'll see a new post type called "API Docs". 3 default pages 
+In the admin you'll see a new post type called "API Docs". Default pages 
 will be created for you if you don't add any before visiting the docs however 
 you can edit these and add to them or remove them afterwards.
 
-The pages are:
+The top level pages are:
 
 1. Global Parameters
 2. Linking and Embedding
 3. Errors
 
-#### Route descriptions
+In addition a page for each default authentication type and each route will be 
+added.
 
-Restsplain has a convenience function for adding a description to routes. 
-Some defaults for the core routes are provided but developers can add support 
-for Restsplain in one of 2 ways:
+When you create a page for a route you should make the title exactly the same
+as the route key in the schema eg. `/wp/v2/posts/(?P<id>[\d]+)`.
+
+If the title does not match then the page is treated as top level documentation
+and will appear at the top of the menu.
+
+#### Adding default pages
+
+Developers can add support for Restsplain in one of 2 ways:
 
 1. Filter the schema output with the `rest_index` hook and add a `description`
-   key/value to each route object
+   and optional `excerpt` key/value to each route object.
 2. Add a file with the namespace `Restsplain` and call
-   `add_route_description( $route, $description )`
+   `add_default_page( $slug, $page )`
  
 ```php
 <?php
 namespace Restsplain;
-add_route_description( '/wp/v2/users', __( 'Fetch or create Users.' ) );
-```
 
-#### Auth descriptions
+// Accepts just a string
+add_default_page( '/wp/v2/users', __( 'Fetch or create Users.' ) );
 
-Just as with the route descriptions you add a description to your authentications
-with the `add_auth_description( $auth, $description )` helper function.
-
-```php
-<?php
-namespace Restsplain;
-add_auth_description( 'oauth1', __( 
-	'Oauth1 Authentication is available. 
-	Find out more on how to implement it at https://github.com/WP-API/OAuth1.' 
+// Or an array with keys title, excerpt and content
+add_default_page( 'oauth1', array(
+	'title'   => __( 'Oauth 1.0a' ),
+	'excerpt' => __( 'Endpoints for authenticating requests with Oauth 1.0a' ),
+	'content' => '<p>...</p>', 
 ) );
 ```
+
+Pages will be created in the admin that can then be edited.
 
 ### Theming
 
@@ -107,6 +111,9 @@ if your theme supports a custom logo it will be displayed in the header.
 The standard calls to `wp_head()` and `wp_footer()` are present in the template 
 so adding your own CSS is simple. Everything is styled under the `.restsplain` 
 namespace.
+
+> **NOTE:** You will more than likely have to add some styles if your theme does
+not have rules for tables are global element rules for example.
 
 #### highlight.js
 
@@ -137,6 +144,11 @@ add_filter( 'restsplain_config', function( $config ) {
 	return $config;
 } );
 ```
+
+## Localisation
+
+The plugin is translation ready including the React component. If you'd like to
+provide a translation let us know!
 
 ## Note to developers
 
@@ -184,7 +196,7 @@ Add `define( 'RESTSPLAIN_DEBUG', true );` to your config file to make the plugin
 use the development files served from `http://localhost:3000`
 
 **NOTE:** Currently the hotloading doesn't work in the WordPress context so if
-you know how to fix it let us know!
+you know how to fix it create a pull request!
 
 ## License
 

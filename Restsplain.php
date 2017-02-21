@@ -14,14 +14,12 @@
 
 namespace Restsplain;
 
-use WP_REST_Response;
-use WP_Post;
-
 define( 'RESTSPLAIN_DIR', __DIR__ );
 define( 'RESTSPLAIN_URL', plugins_url( '', __FILE__ ) );
 
 require_once 'inc/documentation.php';
 require_once 'inc/post-type.php';
+require_once 'inc/rest-index.php';
 
 /**
  * The default URL for the generated docs.
@@ -47,7 +45,13 @@ function get_docs_base() {
 	return str_replace( home_url( '/' ), '', get_permalink() );
 }
 
-function enqueue_scripts() {
+/**
+ * You can override the config at the time of queueing scripts
+ * by passing an array here.
+ *
+ * @param array $args
+ */
+function enqueue_scripts( $args = array() ) {
 
 	$manifest = file_get_contents( RESTSPLAIN_DIR . '/app/build/asset-manifest.json' );
 	$files    = json_decode( $manifest, ARRAY_A );
@@ -73,7 +77,37 @@ function enqueue_scripts() {
 		'nonce'     => wp_create_nonce( 'wp_rest' ),
 		'codeTheme' => 'Tomorrow Night', // Any of the themes shipped with highlight.js
 		'logo'      => $logo_url,
+		'l10n'      => array(
+			'response'                 => __( 'Response', 'restsplain' ),
+			'responseInputPlaceholder' => __( 'Enter an API url and hit enter', 'restsplain' ),
+			'emptyResponse'            => __( 'Try clicking one of the resource links (👉) or enter an endpoint path above and hit enter to see the response.', 'restsplain' ),
+			'raw'                      => __( 'Raw', 'restsplain' ),
+			'json'                     => __( 'JSON', 'restsplain' ),
+			'links'                    => __( 'Links', 'restsplain' ),
+			'fetchingData'             => __( 'Fetching data...', 'restsplain' ),
+			'noLinks'                  => __( 'No links in this response', 'restsplain' ),
+			'documentation'            => __( 'Documentation', 'restsplain' ),
+			'authentication'           => __( 'Authentication', 'restsplain' ),
+			'endpoints'                => __( 'Endpoints', 'restsplain' ),
+			'fetchingSchema'           => __( 'Fetching Schema', 'restsplain' ),
+			'failedFetchingSchema'     => __( 'Failed Fetching Schema', 'restsplain' ),
+			'apiMayBeDown'             => __( 'The API may be down or not currently enabled.', 'restsplain' ),
+			'madeWithLove'             => __( 'made with ❤️ by', 'restsplain' ),
+			'routeParameters'          => __( 'Route Parameters', 'restsplain' ),
+			'name'                     => __( 'Name', 'restsplain' ),
+			'type'                     => __( 'Type', 'restsplain' ),
+			'description'              => __( 'Description', 'restsplain' ),
+			'parameters'               => __( 'Parameters', 'restsplain' ),
+			'required'                 => __( 'Required', 'restsplain' ),
+			'default'                  => __( 'Default', 'restsplain' ),
+			'resourceURL'              => __( 'Resource URL', 'restsplain' ),
+			'code'                     => __( 'Code', 'restsplain' ),
+			'embeddable'               => __( 'Embeddable', 'restsplain' ),
+			'templated'                => __( 'Templated', 'restsplain' ),
+		),
 	);
+
+	$config = wp_parse_args( $args, $config );
 
 	/**
 	 * Filter the default config here.
@@ -122,7 +156,8 @@ function init() {
 
 	// Allow shortcode to be rendered on any page / post
 	add_rewrite_endpoint( 'endpoints', EP_PAGES | EP_PERMALINK, false );
-	add_rewrite_endpoint( 'docs', EP_PAGES | EP_PERMALINK, false );
+	add_rewrite_endpoint( 'auths', EP_PAGES | EP_PERMALINK, false );
+	add_rewrite_endpoint( 'pages', EP_PAGES | EP_PERMALINK, false );
 }
 
 add_filter( 'query_vars', __NAMESPACE__ . '\query_vars' );
@@ -143,95 +178,16 @@ function template_include( $template ) {
 	if ( get_query_var( 'restsplain', false ) ) {
 		enqueue_scripts();
 
-		return RESTSPLAIN_DIR . '/inc/template.php';
+		return RESTSPLAIN_DIR . '/views/template.php';
 	}
 
 	return $template;
 }
 
-
-/**
- * Decorate the schema if it's a request from our react app
- */
-add_filter( 'rest_index', __NAMESPACE__ . '\filter_rest_index', 100 );
-
-/**
- * @param \WP_REST_Response $response
- * @return \WP_REST_Response
- */
-function filter_rest_index( WP_REST_Response $response ) {
-
-	if ( ! isset( $_GET['restsplain'] ) ) {
-		return $response;
-	}
-
-	$data = $response->get_data();
-
-	// Add documentation
-	$data['documentation'] = array();
-
-	$documentation = get_posts( array(
-		'post_type'     => 'restsplain',
-		'nopaging'      => true,
-		'no_found_rows' => true,
-		'orderby'       => 'menu_order',
-		'order'         => 'asc',
-	) );
-
-	// Add our documentation pages if they don't exist so they
-	// can be edited further from the admin
-	if ( empty( $documentation ) ) {
-		$pages = get_pages();
-		foreach ( $pages as $order => $page ) {
-			wp_insert_post( wp_slash( array(
-				'post_title'   => $page['title'],
-				'post_content' => $page['content'],
-				'post_excerpt' => $page['excerpt'],
-				'post_type'    => 'restsplain',
-				'menu_order'   => $order,
-				'post_status'  => 'publish',
-			) ) );
-		}
-
-		$data['documentation'] = $pages;
-	} else {
-		$data['documentation'] = array_map( function ( WP_Post $doc ) {
-			return array(
-				'slug'    => $doc->post_name,
-				'title'   => get_the_title( $doc ),
-				'excerpt' => get_the_excerpt( $doc ),
-				'content' => apply_filters( 'the_content', $doc->post_content ),
-			);
-		}, $documentation );
-	}
-
-	// Append route descriptions
-	foreach ( $data['routes'] as $route => $route_data ) {
-		$data['routes'][ $route ]['description'] = apply_filters( "restsplain_{$route}", '' );
-	}
-
-	// Append auth descriptions
-	foreach ( $data['authentication'] as $auth => $auth_data ) {
-		if ( is_string( $data['authentication'][ $auth ] ) ) {
-			$data['authentication'][ $auth ] = array(
-				'self'        => $data['authentication'][ $auth ],
-				'description' => apply_filters( "restsplain_{$auth}", '' ),
-			);
-		}
-		if ( is_array( $data['authentication'][ $auth ] ) ) {
-			$data['authentication'][ $auth ]['description'] = apply_filters( "restsplain_{$auth}", '' );
-		}
-	}
-
-	$data = apply_filters( 'restsplain_schema', $data );
-
-	$response->set_data( $data );
-
-	return $response;
-}
-
 /**
  * Shortcode to embed the docs app in a page
+ *
+ * **SUPER BETA NOT RECOMMENDED KLAXON**
  */
 add_shortcode( 'restsplain', __NAMESPACE__ . '\shortcode' );
 
@@ -242,7 +198,9 @@ function shortcode() {
 		$done = true;
 
 		// Queue scripts
-		enqueue_scripts();
+		enqueue_scripts( array(
+			'embedded' => true,
+		) );
 
 		// Echo placeholder
 		return '<div id="restsplain"></div>';

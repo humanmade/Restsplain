@@ -7,23 +7,25 @@ import MaybeHTML from '../MaybeHTML'
 import CodeContainer from '../../containers/CodeContainer'
 import { trim, getRouteReadable, makeID, getRouteURL } from '../../helpers/formatting'
 import { isEmpty } from '../../helpers/conditionals'
+import { l10n } from '../../helpers/l10n'
 import config from '../../data/config'
 
-const Endpoint = ( { route, excerpt = false } ) => {
+const Endpoint = ( { route, isExcerpt = false } ) => {
 
   let resource = (route._links && route._links.self) ||
                  `${trim( config.restBase, '/' )}${route.self}`
 
   let hash = location.hash.substr( 1 )
 
-  if ( excerpt ) {
+  if ( isExcerpt ) {
     return (
       <section className="restsplain-endpoint">
         <h3>
           <NavLink to={`/endpoints${getRouteURL( route.self )}`}>{getRouteReadable( route.self )}</NavLink>
         </h3>
 
-        { route.description && <MaybeHTML className="restsplain-route-description" text={route.description} /> }
+        { route.excerpt && <MaybeHTML className="restsplain-route-description" text={route.excerpt} /> }
+        { ! route.excerpt && route.description && <MaybeHTML className="restsplain-route-description" text={route.description} /> }
       </section>
     )
   }
@@ -38,7 +40,7 @@ const Endpoint = ( { route, excerpt = false } ) => {
       { route.description && <MaybeHTML className="restsplain-route-description" text={route.description} /> }
 
       <div className="restsplain-endpoint-url">
-        <h3>Resource URL</h3>
+        <h3>{l10n('resourceURL')}</h3>
         <p>{getRouteReadable( resource )}</p>
         <RouteParameters route={route.self}/>
       </div>
