@@ -3,6 +3,7 @@ import { Route, Link } from 'react-router-dom'
 import Menu from './Menu'
 import Endpoints from './Endpoints'
 import Pages from './Pages'
+import Auths from './Auths'
 import ResponseContainer from '../containers/ResponseContainer'
 import { l10n } from '../helpers/l10n'
 import config from '../data/config'
@@ -66,17 +67,11 @@ const Docs = ({ schema = {}, fetchSchema }) => {
       </div>
 
       <div className="restsplain-docs">
-<<<<<<< Updated upstream
-        <Route exact path="/" render={ () => <h2>Documentation</h2> } />
-        <Pages pages={schema.documentation} />
-        <Route exact path="/" render={ () => <h2>Endpoints</h2> } />
-=======
         <Route exact path="/" render={ () => <h2>{l10n('documentation')}</h2> } />
         <Pages pages={schema.pages} />
         <Route exact path="/" render={ () => <h2>{l10n('authentication')}</h2> } />
         <Auths auths={schema.authentication} />
         <Route exact path="/" render={ () => <h2>{l10n('endpoints')}</h2> } />
->>>>>>> Stashed changes
         <Endpoints routes={schema.routes} />
       </div>
 

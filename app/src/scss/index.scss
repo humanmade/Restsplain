@@ -184,6 +184,14 @@
       background: rgba(0,0,0,.8);
       padding: 15px;
     }
+
+    h2 {
+      margin-top: 3rem;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
   }
 
   &-page-content {

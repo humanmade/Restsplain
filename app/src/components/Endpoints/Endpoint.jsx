@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import RouteParameters from './RouteParameters'
 import Parameters from './Parameters'
 import Links from './Links'
+import MaybeHTML from '../MaybeHTML'
 import CodeContainer from '../../containers/CodeContainer'
 import { trim, getRouteReadable, makeID, getRouteURL } from '../../helpers/formatting'
 import { isEmpty } from '../../helpers/conditionals'
@@ -23,12 +24,8 @@ const Endpoint = ( { route, isExcerpt = false } ) => {
           <NavLink to={`/endpoints${getRouteURL( route.self )}`}>{getRouteReadable( route.self )}</NavLink>
         </h3>
 
-<<<<<<< Updated upstream
-        { route.description && <p className="restsplain-route-description">{route.description}</p> }
-=======
         { route.excerpt && <MaybeHTML className="restsplain-route-description" text={route.excerpt} /> }
         { ! route.excerpt && route.description && <MaybeHTML className="restsplain-route-description" text={route.description} /> }
->>>>>>> Stashed changes
       </section>
     )
   }

@@ -123,8 +123,7 @@ Location: http://example.com/wp-json/wp/v2/users/42
 <div class="callout callout-info"><p><span class="screen-reader-text">Note:</span> <br>
 For future compatibility, other values should not be passed.</p>
 </div>
-<p>Resources in embed mode will contain an additional <code>_embedded</code> key next to the <code>_links</code> key containing the linked resources. Only links with the <code>embeddable</code> parameter set to <code>true</code> will be embedded.</p>
-			',
+<p>Resources in embed mode will contain an additional <code>_embedded</code> key next to the <code>_links</code> key containing the linked resources. Only links with the <code>embeddable</code> parameter set to <code>true</code> will be embedded.</p>',
 ) );
 
 add_default_page( 'linking-and-embedding', array(
@@ -218,31 +217,8 @@ similar pattern to help you consistently deal with them.',
     "status": 403
   }
 }</code></pre>',
-<<<<<<< Updated upstream
-		),
-	);
-
-	return $pages;
-}
-
-/**
- * Adds a description field to the route data
- *
- * $route should be in the form `/wp/v2/posts` for example
- * and correspond to the array keys in the schema found at
- * /wp-json/
- *
- * @param string $route
- * @param string $description
- */
-function add_route_description( $route, $description ) {
-	add_filter( "restsplain_{$route}", function () use ( $description ) {
-		return $description;
-	} );
-}
-=======
 ) );
->>>>>>> Stashed changes
+
 
 // Add basic post type descriptions
 foreach ( get_post_types( array( 'show_in_rest' => true ), 'objects' ) as $post_type ) {
@@ -298,9 +274,6 @@ add_default_page( '/wp/v2/comments', __( 'Fetch or create Comments.', 'restsplai
 add_default_page( '/wp/v2/comments/(?P<id>[\d]+)', __( 'Fetch or edit a single Comment.', 'restsplain' ) );
 
 // Settings
-<<<<<<< Updated upstream
-add_route_description( '/wp/v2/settings', __( 'Fetch or update registered settings.', 'restsplain' ) );
-=======
 add_default_page( '/wp/v2/settings', __( 'Fetch or update registered settings.', 'restsplain' ) );
 
 // Cookie auth
@@ -374,4 +347,3 @@ add_default_page( 'broker', array(
 	<p>You can register your application once and all WordPress sites using the Oauth 1.0a plugin will be able to securely authenticate with it.</p>
 	<p>Learn more at <a href="https://apps.wp-api.org/">apps.wp-api.org</a>.</p>',
 ) );
->>>>>>> Stashed changes
