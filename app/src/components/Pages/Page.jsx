@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router-dom'
+import MaybeHTML from '../MaybeHTML'
 import { highlightBlocks } from '../../helpers/dom'
 
 class Page extends Component {
@@ -9,15 +10,15 @@ class Page extends Component {
   }
 
   render() {
-    let { page, excerpt = false } = this.props
+    let { page, isExcerpt = false } = this.props
 
-    if ( excerpt ) {
+    if ( isExcerpt ) {
       return (
         <section className="restsplain-page">
           <h3>
             <Link to={`/docs/${page.slug}/`}>{page.title}</Link>
           </h3>
-          { page.excerpt && <p className="restsplain-page-excerpt">{page.excerpt}</p> }
+          { page.excerpt && <MaybeHTML className="restsplain-page-excerpt" text={page.excerpt} /> }
         </section>
       )
     }
@@ -25,7 +26,7 @@ class Page extends Component {
     return (
       <section className="restsplain-page">
         <h1>{page.title}</h1>
-        <div className="restsplain-page-content" dangerouslySetInnerHTML={{ __html: page.content }} />
+        <MaybeHTML className="restsplain-page-content" text={page.content} />
       </section>
     )
   }
@@ -38,7 +39,7 @@ Page.propTypes = {
     content: PropTypes.string.isRequired,
     excerpt: PropTypes.string
   } ),
-  excerpt: PropTypes.bool
+  isExcerpt: PropTypes.bool
 }
 
 export default Page

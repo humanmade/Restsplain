@@ -4,6 +4,7 @@ import Menu from './Menu'
 import Endpoints from './Endpoints'
 import Pages from './Pages'
 import ResponseContainer from '../containers/ResponseContainer'
+import { l10n } from '../helpers/l10n'
 import config from '../data/config'
 
 const Docs = ({ schema = {}, fetchSchema }) => {
@@ -22,8 +23,8 @@ const Docs = ({ schema = {}, fetchSchema }) => {
 
     return (
       <div className={classNames.join(' ')}>
-        <h1>Failed Fetching Schema</h1>
-        <p>The API may be down or not currently enabled.</p>
+        <h1>{l10n('failedFetchingSchema')}</h1>
+        <p>{l10n('apiMayBeDown')}</p>
         { schema.error && <p className="restsplain-error">{schema.error}</p> }
         <div className="restsplain-loader"></div>
       </div>
@@ -38,7 +39,7 @@ const Docs = ({ schema = {}, fetchSchema }) => {
 
     return (
       <div className={classNames.join(' ')}>
-        <h1>Fetching Schema&hellip;</h1>
+        <h1>{l10n('fetchingSchema')}&hellip;</h1>
         <div className="restsplain-loader"></div>
       </div>
     )
@@ -65,15 +66,23 @@ const Docs = ({ schema = {}, fetchSchema }) => {
       </div>
 
       <div className="restsplain-docs">
+<<<<<<< Updated upstream
         <Route exact path="/" render={ () => <h2>Documentation</h2> } />
         <Pages pages={schema.documentation} />
         <Route exact path="/" render={ () => <h2>Endpoints</h2> } />
+=======
+        <Route exact path="/" render={ () => <h2>{l10n('documentation')}</h2> } />
+        <Pages pages={schema.pages} />
+        <Route exact path="/" render={ () => <h2>{l10n('authentication')}</h2> } />
+        <Auths auths={schema.authentication} />
+        <Route exact path="/" render={ () => <h2>{l10n('endpoints')}</h2> } />
+>>>>>>> Stashed changes
         <Endpoints routes={schema.routes} />
       </div>
 
       <ResponseContainer />
 
-      <div className="restsplain-colophon">made with ❤️ by <a href="https://hmn.md/">Human Made</a></div>
+      <div className="restsplain-colophon">{l10n('madeWithLove')} <a href="https://hmn.md/">Human Made</a></div>
     </div>
   )
 }

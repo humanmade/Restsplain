@@ -5,6 +5,9 @@ const ES6 = ( { method, resource, args = {} } ) => {
     .map( arg => ({ [arg.name]: arg.value }) )
     .reduce( (out, obj) => Object.assign(out, obj), { method: method } )
 
+  args.credentials = 'same-origin'
+  args.headers = { 'X-WP-Nonce': 'abcdefgh123' }
+
   args = JSON.stringify( args, null, '  ' )
 
   return {

@@ -14,14 +14,12 @@
 
 namespace Restsplain;
 
-use WP_REST_Response;
-use WP_Post;
-
 define( 'RESTSPLAIN_DIR', __DIR__ );
 define( 'RESTSPLAIN_URL', plugins_url( '', __FILE__ ) );
 
 require_once 'inc/documentation.php';
 require_once 'inc/post-type.php';
+require_once 'inc/rest-index.php';
 
 /**
  * The default URL for the generated docs.
@@ -73,6 +71,34 @@ function enqueue_scripts() {
 		'nonce'     => wp_create_nonce( 'wp_rest' ),
 		'codeTheme' => 'Tomorrow Night', // Any of the themes shipped with highlight.js
 		'logo'      => $logo_url,
+		'l10n'      => array(
+			'response'                 => __( 'Response', 'restsplain' ),
+			'responseInputPlaceholder' => __( 'Enter an API url and hit enter', 'restsplain' ),
+			'emptyResponse'            => __( 'Try clicking one of the resource links (👉) or enter an endpoint path above and hit enter to see the response.', 'restsplain' ),
+			'raw'                      => __( 'Raw', 'restsplain' ),
+			'json'                     => __( 'JSON', 'restsplain' ),
+			'links'                    => __( 'Links', 'restsplain' ),
+			'fetchingData'             => __( 'Fetching data...', 'restsplain' ),
+			'noLinks'                  => __( 'No links in this response', 'restsplain' ),
+			'documentation'            => __( 'Documentation', 'restsplain' ),
+			'authentication'           => __( 'Authentication', 'restsplain' ),
+			'endpoints'                => __( 'Endpoints', 'restsplain' ),
+			'fetchingSchema'           => __( 'Fetching Schema', 'restsplain' ),
+			'failedFetchingSchema'     => __( 'Failed Fetching Schema', 'restsplain' ),
+			'apiMayBeDown'             => __( 'The API may be down or not currently enabled.', 'restsplain' ),
+			'madeWithLove'             => __( 'made with ❤️ by', 'restsplain' ),
+			'routeParameters'          => __( 'Route Parameters', 'restsplain' ),
+			'name'                     => __( 'Name', 'restsplain' ),
+			'type'                     => __( 'Type', 'restsplain' ),
+			'description'              => __( 'Description', 'restsplain' ),
+			'parameters'               => __( 'Parameters', 'restsplain' ),
+			'required'                 => __( 'Required', 'restsplain' ),
+			'default'                  => __( 'Default', 'restsplain' ),
+			'resourceURL'              => __( 'Resource URL', 'restsplain' ),
+			'code'                     => __( 'Code', 'restsplain' ),
+			'embeddable'               => __( 'Embeddable', 'restsplain' ),
+			'templated'                => __( 'Templated', 'restsplain' ),
+		),
 	);
 
 	/**
@@ -143,12 +169,13 @@ function template_include( $template ) {
 	if ( get_query_var( 'restsplain', false ) ) {
 		enqueue_scripts();
 
-		return RESTSPLAIN_DIR . '/inc/template.php';
+		return RESTSPLAIN_DIR . '/views/template.php';
 	}
 
 	return $template;
 }
 
+<<<<<<< Updated upstream
 
 /**
  * Decorate the schema if it's a request from our react app
@@ -217,6 +244,8 @@ function filter_rest_index( WP_REST_Response $response ) {
 	return $response;
 }
 
+=======
+>>>>>>> Stashed changes
 /**
  * Shortcode to embed the docs app in a page
  */

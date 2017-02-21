@@ -1,17 +1,18 @@
 import React, { PropTypes } from 'react'
 import { getTypeString, getDefault } from '../../helpers/transform'
+import { l10n } from '../../helpers/l10n'
 
 const Parameters = ({ args }) => {
   return args && (
     <div className="restsplain-endpoint-parameters">
-      <h3>Parameters</h3>
+      <h3>{l10n('parameters')}</h3>
       <div className="restsplain-table-wrap">
         <table>
           <thead>
           <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
+            <th>{l10n('name')}</th>
+            <th>{l10n('type')}</th>
+            <th>{l10n('description')}</th>
           </tr>
           </thead>
           <tbody>
@@ -25,10 +26,10 @@ const Parameters = ({ args }) => {
                   <span className="restsplain-code"><code>{getTypeString( arg )}</code></span>
                 </td>
                 <td>
-                  {arg.required && <p className="restsplain-endpoint-arg-required">Required</p>}
+                  {arg.required && <p className="restsplain-endpoint-arg-required">{l10n('required')}</p>}
                   { getDefault( arg.default ) &&
                     <p className="restsplain-endpoint-arg-default">
-                      Default:
+                      {l10n('default')}:
                       {' '}
                       <code>{getDefault( arg.default, arg.type )}</code>
                     </p>

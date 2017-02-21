@@ -5,6 +5,7 @@ import Links from './Endpoints/Links'
 import { trim } from '../helpers/formatting'
 import { scrollTo } from '../helpers/dom'
 import { isEmpty } from '../helpers/conditionals'
+import { l10n } from '../helpers/l10n'
 import config from '../data/config'
 
 class Response extends Component {
@@ -46,48 +47,45 @@ class Response extends Component {
 
     return (
       <div className="restsplain-response">
-        <h2>Response</h2>
+        <h2>{l10n('response')}</h2>
 
         <form onSubmit={e => this.handleSubmit( e )}>
           <input
             type="text"
             defaultValue={resource}
             ref={( input ) => this.input = input}
-            placeholder="Enter an API url and hit enter"/>
+            placeholder={l10n('responseInputPlaceholder')}/>
         </form>
 
         { !response &&
           <div className="restsplain-response-instructions">
-            <p>
-              Try clicking one of the resource links (👉) or enter an
-              endpoint path above and hit enter to see the response.
-            </p>
+            <p>{l10n('responseHelp')}</p>
           </div>
         }
 
         { response && response.data &&
           <div className="restsplain-response-view">
             <nav>
-              <a className={view === 'raw' && 'active'} onClick={() => setView( 'raw' )}>Raw</a>
-              <a className={view === 'json' && 'active'} onClick={() => setView( 'json' )}>JSON</a>
-              <a className={view === 'links' && 'active'} onClick={() => setView( 'links' )}>Links</a>
+              <a className={view === 'raw' && 'active'} onClick={() => setView( 'raw' )}>{l10n('raw')}</a>
+              <a className={view === 'json' && 'active'} onClick={() => setView( 'json' )}>{l10n('json')}</a>
+              <a className={view === 'links' && 'active'} onClick={() => setView( 'links' )}>{l10n('links')}</a>
             </nav>
 
             { view === 'raw' &&
               <Highlight className="json">
                 { response.data ?
                   JSON.stringify( response.data, null, '  ' ) :
-                  <p>Fetching data...</p>
+                  <p>{l10n('fetchingData')}</p>
                 }
               </Highlight>
             }
 
             { view === 'json' && (
-              response.data ? <pre><code><Inspector ref="inspector" data={response.data} className="hljs"/></code></pre> : <p>Fetching data...</p>
+              response.data ? <pre><code><Inspector ref="inspector" data={response.data} className="hljs"/></code></pre> : <p>{l10n('fetchingData')}</p>
             ) }
 
             { view === 'links' && (
-              links ? <Links links={links}/> : <p>No links in this response</p>
+              links ? <Links links={links}/> : <p>{l10n('noLinks')}</p>
             ) }
           </div>
         }

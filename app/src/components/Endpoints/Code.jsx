@@ -6,6 +6,7 @@ import ES6 from './Code/ES6'
 import { getRouteParams, getExampleData } from '../../helpers/transform'
 import { getRouteReadable } from '../../helpers/formatting'
 import { isEmpty } from '../../helpers/conditionals'
+import { l10n } from '../../helpers/l10n'
 
 const Code = ( { methods, resource, args = {}, language = 'curl', setLanguage } ) => {
 
@@ -53,7 +54,7 @@ const Code = ( { methods, resource, args = {}, language = 'curl', setLanguage } 
 
   return (
     <div className="restsplain-endpoint-code">
-      <h3>Code</h3>
+      <h3>{l10n('code')}</h3>
       <nav>
         <a className={language === 'curl' ? 'active' : ''} onClick={() => setLanguage( 'curl' )}>cURL</a>
         <a className={language === 'js' ? 'active' : ''} onClick={() => setLanguage( 'js' )}>JS</a>

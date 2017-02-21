@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import { getRouteParams, getParamType } from '../../helpers/transform'
+import { l10n } from '../../helpers/l10n'
 
 const RouteParameters = ({ route }) => {
 
@@ -7,13 +8,13 @@ const RouteParameters = ({ route }) => {
 
   return !!params.length && (
     <div className="restsplain-endpoint-url-params">
-      <h4>Route Parameters</h4>
+      <h4>{l10n('routeParameters')}</h4>
       <div className="restsplain-table-wrap">
         <table>
           <thead>
           <tr>
-            <th>Name</th>
-            <th>Type</th>
+            <th>{l10n('name')}</th>
+            <th>{l10n('type')}</th>
           </tr>
           </thead>
           <tbody>
