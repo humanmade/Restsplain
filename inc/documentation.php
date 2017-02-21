@@ -219,7 +219,6 @@ similar pattern to help you consistently deal with them.',
 }</code></pre>',
 ) );
 
-
 // Add basic post type descriptions
 foreach ( get_post_types( array( 'show_in_rest' => true ), 'objects' ) as $post_type ) {
 	add_default_page( "/wp/v2/{$post_type->rest_base}",

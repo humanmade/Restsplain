@@ -37,7 +37,7 @@ const Endpoint = ( { route, isExcerpt = false } ) => {
         {getRouteReadable( route.self )}
       </h1>
 
-      { route.description && <p className="restsplain-route-description">{route.description}</p> }
+      { route.description && <MaybeHTML className="restsplain-route-description" text={route.description} /> }
 
       <div className="restsplain-endpoint-url">
         <h3>{l10n('resourceURL')}</h3>
@@ -54,7 +54,7 @@ const Endpoint = ( { route, isExcerpt = false } ) => {
             className={`method-${method.toLowerCase()}`}
             activeClassName="active"
             isActive={(match, location) => {
-              return ( method === 'GET' && ! location.hash ) || location.hash.substr(1) === method
+              return ( method === route.methods[0] && ! location.hash ) || location.hash.substr(1) === method
             }}
             to={{
               pathname: `/endpoints${getRouteURL( route.self )}`,
@@ -71,7 +71,7 @@ const Endpoint = ( { route, isExcerpt = false } ) => {
           return null
         }
 
-        if ( !hash && !endpoint.methods.includes( 'GET' ) ) {
+        if ( !hash && !endpoint.methods.includes( route.methods[0] ) ) {
           return null
         }
 
@@ -83,7 +83,7 @@ const Endpoint = ( { route, isExcerpt = false } ) => {
               {endpoint.methods.join( ', ' )}
             </h2>
 
-            { endpoint.description && <p className="restsplain-endpoint-description">{endpoint.description}</p> }
+            { endpoint.description && <MaybeHTML className="restsplain-endpoint-description" text={endpoint.description} /> }
 
             { ! isEmpty(endpoint.args) && <Parameters args={endpoint.args}/> }
 

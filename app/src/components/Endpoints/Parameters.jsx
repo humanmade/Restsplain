@@ -23,7 +23,10 @@ const Parameters = ({ args }) => {
               <tr key={arg.name}>
                 <td>{arg.name}</td>
                 <td>
-                  <span className="restsplain-code"><code>{getTypeString( arg )}</code></span>
+                  <span className="restsplain-pre">
+                    {arg.enum && `enum:\n\n`}
+                    <code>{getTypeString( arg )}</code>
+                  </span>
                 </td>
                 <td>
                   {arg.required && <p className="restsplain-endpoint-arg-required">{l10n('required')}</p>}

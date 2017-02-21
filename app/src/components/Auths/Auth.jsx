@@ -51,7 +51,7 @@ const Auth = ( { name, data, isExcerpt = false } ) => {
 
 Auth.propTypes = {
   name     : PropTypes.string.isRequired,
-  data     : PropTypes.any.isRequired,
+  data     : PropTypes.object.isRequired,
   isExcerpt: PropTypes.bool
 }
 

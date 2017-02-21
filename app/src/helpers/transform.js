@@ -70,7 +70,7 @@ export const getTypeString = (arg) => {
     case 'array':
       return (arg.items && `${arg.items.type}[]`) || arg.type
     case 'string':
-      return (arg.enum && `enum:\n\n${arg.enum.join(',\n')}`) || arg.type
+      return (arg.enum && `${arg.enum.join(',\n')}`) || arg.type
     default:
       return arg.type
   }

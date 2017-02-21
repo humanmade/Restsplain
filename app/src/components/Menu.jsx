@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react'
 import { NavLink } from 'react-router-dom'
 import Namespace from './Menu/Namespace'
 import { getNamespacedRoutes } from '../helpers/transform'
-import { isEmpty } from '../helpers/conditionals'
 import { capitalise } from '../helpers/formatting'
+import { isEmpty } from '../helpers/conditionals'
 import { l10n } from '../helpers/l10n'
 
 const Menu = ( { schema } ) => {
