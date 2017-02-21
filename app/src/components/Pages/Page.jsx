@@ -16,7 +16,7 @@ class Page extends Component {
       return (
         <section className="restsplain-page">
           <h3>
-            <Link to={`/docs/${page.slug}/`}>{page.title}</Link>
+            <Link to={`/pages/${page.slug}/`}>{page.title}</Link>
           </h3>
           { page.excerpt && <MaybeHTML className="restsplain-page-excerpt" text={page.excerpt} /> }
         </section>

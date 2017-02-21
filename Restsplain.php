@@ -45,7 +45,13 @@ function get_docs_base() {
 	return str_replace( home_url( '/' ), '', get_permalink() );
 }
 
-function enqueue_scripts() {
+/**
+ * You can override the config at the time of queueing scripts
+ * by passing an array here.
+ *
+ * @param array $args
+ */
+function enqueue_scripts( $args = array() ) {
 
 	$manifest = file_get_contents( RESTSPLAIN_DIR . '/app/build/asset-manifest.json' );
 	$files    = json_decode( $manifest, ARRAY_A );
@@ -101,6 +107,8 @@ function enqueue_scripts() {
 		),
 	);
 
+	$config = wp_parse_args( $args, $config );
+
 	/**
 	 * Filter the default config here.
 	 *
@@ -148,7 +156,8 @@ function init() {
 
 	// Allow shortcode to be rendered on any page / post
 	add_rewrite_endpoint( 'endpoints', EP_PAGES | EP_PERMALINK, false );
-	add_rewrite_endpoint( 'docs', EP_PAGES | EP_PERMALINK, false );
+	add_rewrite_endpoint( 'auths', EP_PAGES | EP_PERMALINK, false );
+	add_rewrite_endpoint( 'pages', EP_PAGES | EP_PERMALINK, false );
 }
 
 add_filter( 'query_vars', __NAMESPACE__ . '\query_vars' );
@@ -177,6 +186,8 @@ function template_include( $template ) {
 
 /**
  * Shortcode to embed the docs app in a page
+ *
+ * **SUPER BETA NOT RECOMMENDED KLAXON**
  */
 add_shortcode( 'restsplain', __NAMESPACE__ . '\shortcode' );
 
@@ -187,7 +198,9 @@ function shortcode() {
 		$done = true;
 
 		// Queue scripts
-		enqueue_scripts();
+		enqueue_scripts( array(
+			'embedded' => true,
+		) );
 
 		// Echo placeholder
 		return '<div id="restsplain"></div>';

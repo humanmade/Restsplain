@@ -8,7 +8,7 @@ const Pages = ({ pages }) => {
       <div className="restsplain-pages">
         { pages.map( page => createFragment({
             home: <Route exact path="/" component={Page} page={page} isExcerpt={true} />,
-            page: <Route exact path={`/docs/${page.slug}/`} component={Page} page={page} />
+            page: <Route exact path={`/pages/${page.slug}/`} component={Page} page={page} />
           }) )
         }
       </div>

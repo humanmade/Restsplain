@@ -27,7 +27,7 @@ const Menu = ( { schema } ) => {
             <ul>
               { schema.pages.map( page => (
                 <li key={page.slug}>
-                  <NavLink exact activeClassName="active" to={`/docs/${page.slug}/`}>{page.title}</NavLink>
+                  <NavLink exact activeClassName="active" to={`/pages/${page.slug}/`}>{page.title}</NavLink>
                 </li>
               ) ) }
             </ul>
