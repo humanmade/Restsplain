@@ -4,17 +4,15 @@
 			<h1 style="border:0;margin-bottom:0;">Restsplain</h1>
 			Super fast WordPress REST API docs that update with your site.
 		</td>
-		<td align="right" width="30%">
-			
+		<td align="center" width="30%">
+			<img src="https://hmn.md/content/themes/hmnmd/assets/images/hm-logo.svg" width="100" />
 		</td>
 	</tr>
 	<tr>
 		<td>
 			A <strong><a href="https://hmn.md/">Human Made</a></strong> project. Maintained by @roborourke.
 		</td>
-		<td align="center">
-			<img src="https://hmn.md/content/themes/hmnmd/assets/images/hm-logo.svg" width="100" />
-		</td>
+		<td></td>
 	</tr>
 </table>
 
