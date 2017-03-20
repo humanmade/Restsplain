@@ -71,15 +71,16 @@ function enqueue_scripts( $args = array() ) {
 	}
 
 	$config = array(
-		'basename'  => get_docs_base(),
-		'restBase'  => get_rest_url(),
-		'embedded'  => get_docs_base() !== get_default_docs_base(),
-		'nonce'     => wp_create_nonce( 'wp_rest' ),
-		'codeTheme' => 'Tomorrow Night', // Any of the themes shipped with highlight.js
-		'logo'      => $logo_url,
-		'l10n'      => array(
+		'basename'          => get_docs_base(),
+		'restBase'          => get_rest_url(),
+		'embedded'          => get_docs_base() !== get_default_docs_base(),
+		'nonce'             => wp_create_nonce( 'wp_rest' ),
+		'codeTheme'         => 'Tomorrow Night', // Any of the themes shipped with highlight.js
+		'fallbackCodeTheme' => RESTSPLAIN_URL . '/app/src/scss/_tomorrow-night.min.css',
+		'logo'              => $logo_url,
+		'l10n'              => array(
 			'response'                 => __( 'Response', 'restsplain' ),
-			'responseInputPlaceholder' => __( 'Enter an API url and hit enter', 'restsplain' ),
+			'responseInputPlaceholder' => __( 'Enter an API path and hit enter', 'restsplain' ),
 			'responseHelp'             => __( 'Try clicking one of the resource links (👉) or enter an endpoint path above and hit enter to see the response.', 'restsplain' ),
 			'raw'                      => __( 'Raw', 'restsplain' ),
 			'json'                     => __( 'JSON', 'restsplain' ),
@@ -129,6 +130,9 @@ function enqueue_scripts( $args = array() ) {
 	 */
 	if ( defined( 'RESTSPLAIN_DEBUG' ) && RESTSPLAIN_DEBUG ) {
 		$js_url = 'http://localhost:3000/static/js/bundle.js';
+
+		// Allow hot reloading.
+		wp_enqueue_script( 'node-socks', 'http://localhost:3000/webpack-dev-server.js', array(), null, true );
 	} else {
 		$js_url = RESTSPLAIN_URL . '/app/build/' . $files['main.js'];
 

@@ -18,10 +18,18 @@ function schema( state = {}, action ) {
 
 function responses( state = {}, action ) {
   switch( action.type ) {
+    case types.FETCHING_RESOURCE_RESPONSE:
+      return Object.assign( {}, state, { fetching: true } )
     case types.GET_RESOURCE_RESPONSE:
-      return Object.assign( {}, state, { [action.response.resource]: action.response } )
+      return Object.assign( {}, state, {
+        fetching: false,
+        [action.response.resource]: action.response
+      } )
     case types.GET_RESOURCE_RESPONSE_ERROR:
-      return Object.assign( {}, state, { [action.response.resource]: action.response } )
+      return Object.assign( {}, state, {
+        fetching: false,
+        [action.response.resource]: action.response
+      } )
     default:
       return state
   }

@@ -101,7 +101,7 @@
     margin-top: 0;
     text-transform: uppercase;
     font-size: 60%;
-    color: rgba(255,255,255,.6)
+    color: rgba(255,255,255,.6);
   }
 
   &-sidebar {
@@ -275,6 +275,19 @@
     @include padding;
     background: rgba(0,0,0,.8);
     color: #fcfcfc;
+
+    form {
+      span {
+        display: block;
+        font-size: 70%;
+        margin: 0 5px calc(-5px - 1rem);
+        position: relative;
+        color: rgba(0,0,0,.8);
+      }
+      input {
+        padding-top: calc(10px + 1rem);
+      }
+    }
 
     &-link:after {
       content: '👉';

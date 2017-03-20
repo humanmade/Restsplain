@@ -24,6 +24,9 @@ export function fetchSchema( schema ) {
 
 export function fetchResourceResponse( resource ) {
   return dispatch => {
+    // Set loading state
+    dispatch(actions.fetchingResourceResponse())
+    // Fetch resource
     return fetch( resource, opts )
       .then( response => response.json() )
       .then( data => dispatch(actions.getResourceResponse({resource, data, view: 'raw'})) )

@@ -8,10 +8,11 @@ const config = Object.assign( {}, {
   restBase: 'http://wordpress-develop.dev/wp-json/',
   embedded: false,
   codeTheme: 'tomorrow night',
+  fallbackCodeTheme: false,
   logo: false,
   l10n: {
     response: 'Response',
-    responseInputPlaceholder: 'Enter an API url and hit enter',
+    responseInputPlaceholder: 'Enter an API path and hit enter',
     responseHelp: `Try clicking one of the resource links (👉) or enter an
       endpoint path above and hit enter to see the response.`,
     raw: 'Raw',

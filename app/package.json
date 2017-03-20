@@ -2,6 +2,7 @@
   "name": "restsplain",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://wordpress-develop.dev",
   "devDependencies": {
     "node-sass": "^4.5.0",
     "npm-run-all": "^4.0.1",

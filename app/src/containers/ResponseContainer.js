@@ -7,6 +7,7 @@ const mapStateToProps = ( state, ownProps ) => ({
   resource: state.options.resource,
   response: state.responses[ state.options.resource ],
   view    : state.options.view,
+  fetching: state.responses.fetching,
   ...ownProps
 })
 

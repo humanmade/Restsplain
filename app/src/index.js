@@ -25,7 +25,9 @@ getCodeCSS(config.codeTheme)
 const logger = createLogger()
 const store = createStore( reducers, {
   schema   : {},
-  responses: {},
+  responses: {
+    fetching: false,
+  },
   options  : {
     language : 'curl', // TODO: Add way to register additional code sample templates
     view     : 'raw',  // Response view, raw, formatted, links

@@ -29,7 +29,7 @@ class Response extends Component {
   render() {
 
     // Destructure props needed for rendering
-    let { resource, view, response, setView } = this.props
+    let { resource, view, response, setView, fetching } = this.props
 
     // Stem the resource so the request is easier to see
     resource = resource ? resource.replace( config.restBase, '/' ) : ''
@@ -50,6 +50,7 @@ class Response extends Component {
         <h1>{l10n('response')}</h1>
 
         <form onSubmit={e => this.handleSubmit( e )}>
+          <span>{trim(config.restBase, '/')}</span>
           <input
             type="text"
             defaultValue={resource}
@@ -57,10 +58,16 @@ class Response extends Component {
             placeholder={l10n('responseInputPlaceholder')}/>
         </form>
 
-        { !response &&
+        { !response && !fetching &&
           <div className="restsplain-response-instructions">
             <p>{l10n('responseHelp')}</p>
           </div>
+        }
+
+        { !response && fetching &&
+        <div className="restsplain-response-instructions">
+          <p>{l10n('fetchingData')}</p>
+        </div>
         }
 
         { response && response.data &&
