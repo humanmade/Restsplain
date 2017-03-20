@@ -50,11 +50,17 @@ class Response extends Component {
         <h1>{l10n('response')}</h1>
 
         <form onSubmit={e => this.handleSubmit( e )}>
-          <span>{trim(config.restBase, '/')}</span>
           <input
+            className="restsplain-response-base"
+            value={trim(config.restBase, '/')}
+            type="text"
+            readOnly
+            onFocus={e => this.input.focus()}/>
+          <input
+            className="restsplain-response-input"
             type="text"
             defaultValue={resource}
-            ref={( input ) => this.input = input}
+            ref={input => this.input = input}
             placeholder={l10n('responseInputPlaceholder')}/>
         </form>
 

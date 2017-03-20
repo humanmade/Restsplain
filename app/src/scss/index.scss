@@ -276,16 +276,16 @@
     background: rgba(0,0,0,.8);
     color: #fcfcfc;
 
-    form {
-      span {
+    input {
+      font-size: inherit;
+      width: 100%;
+      border: 0;
+
+      &.restsplain-response-base {
         display: block;
-        font-size: 70%;
-        margin: 0 5px calc(-5px - 1rem);
+        margin-bottom: -0.5rem;
+        padding-bottom: 0;
         position: relative;
-        color: rgba(0,0,0,.8);
-      }
-      input {
-        padding-top: calc(10px + 1rem);
       }
     }
 
@@ -341,13 +341,6 @@
       a, a:hover, a:visited {
         color: #E6DB75;
       }
-    }
-
-    input {
-      padding: 5px;
-      font-size: inherit;
-      width: 100%;
-      border: 0;
     }
 
     &-instructions {
