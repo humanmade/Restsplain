@@ -5,12 +5,13 @@
 			Super fast WordPress REST API docs that update with your site.
 		</td>
 		<td align="center" width="30%">
-			<img src="https://hmn.md/content/themes/hmnmd/assets/images/hm-logo.svg" width="100" />
+			<img src="https://hmn.md/content/themes/hmnmd/assets/images/hm-logo.svg" width="100" /><br /><br />
+			<img src="https://s0.wp.com/wp-content/themes/vip/techcrunch-2013/assets/images/logo.svg" width="100" />
 		</td>
 	</tr>
 	<tr>
 		<td>
-			A <strong><a href="https://hmn.md/">Human Made</a></strong> project. Maintained by @roborourke.
+			A <strong><a href="https://hmn.md/">Human Made</a></strong> & <strong><a href="https://techcrunch.com/">TechCrunch</a></strong> project. Maintained by @roborourke.
 		</td>
 		<td></td>
 	</tr>
