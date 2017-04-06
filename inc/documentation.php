@@ -221,34 +221,38 @@ similar pattern to help you consistently deal with them.',
 
 // Add basic post type descriptions
 foreach ( get_post_types( array( 'show_in_rest' => true ), 'objects' ) as $post_type ) {
-	add_default_page( "/wp/v2/{$post_type->rest_base}",
-		sprintf(
-			__( 'List or create %s.', 'restsplain' ),
-			$post_type->labels->name
-		)
-	);
-	add_default_page( "/wp/v2/{$post_type->rest_base}/(?P<id>[\d]+)",
-		sprintf(
-			__( 'Fetch or edit a single %s.', 'restsplain' ),
-			$post_type->labels->singular_name
-		)
-	);
+	if ( isset( $post_type->rest_base ) ) {
+		add_default_page( "/wp/v2/{$post_type->rest_base}",
+			sprintf(
+				__( 'List or create %s.', 'restsplain' ),
+				$post_type->labels->name
+			)
+		);
+		add_default_page( "/wp/v2/{$post_type->rest_base}/(?P<id>[\d]+)",
+			sprintf(
+				__( 'Fetch or edit a single %s.', 'restsplain' ),
+				$post_type->labels->singular_name
+			)
+		);
+	}
 }
 
 // Add basic taxonomy descriptions
 foreach ( get_taxonomies( array( 'show_in_rest' => true ), 'objects' ) as $taxonomy ) {
-	add_default_page( "/wp/v2/{$taxonomy->rest_base}",
-		sprintf(
-			__( 'List or create %s.', 'restsplain' ),
-			$taxonomy->labels->name
-		)
-	);
-	add_default_page( "/wp/v2/{$taxonomy->rest_base}/(?P<id>[\d]+)",
-		sprintf(
-			__( 'Fetch or edit a single %s.', 'restsplain' ),
-			$taxonomy->labels->singular_name
-		)
-	);
+	if ( isset( $taxonomy->rest_base ) ) {
+		add_default_page( "/wp/v2/{$taxonomy->rest_base}",
+			sprintf(
+				__( 'List or create %s.', 'restsplain' ),
+				$taxonomy->labels->name
+			)
+		);
+		add_default_page( "/wp/v2/{$taxonomy->rest_base}/(?P<id>[\d]+)",
+			sprintf(
+				__( 'Fetch or edit a single %s.', 'restsplain' ),
+				$taxonomy->labels->singular_name
+			)
+		);
+	}
 }
 
 // Users
