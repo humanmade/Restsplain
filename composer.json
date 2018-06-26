@@ -1,0 +1,15 @@
+{
+    "name": "flicker/restsplain",
+    "version": "1.0.0",
+    "description": "Fork of HumanMade/Restsplain",
+    "type": "library",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Matthew Dalton",
+            "email": "matt@flickerleap.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
