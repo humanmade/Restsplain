@@ -5,3 +5,6 @@ node_modules/
 *.zip
 *.tar.gz
 yarn.lock
+
+/vendor/
+.idea/
