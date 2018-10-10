@@ -7,8 +7,8 @@ const Pages = ({ pages }) => {
     return (
       <div className="restsplain-pages">
         { pages.map( page => createFragment({
-            home: <Route exact path="/" component={Page} page={page} isExcerpt={true} />,
-            page: <Route exact path={`/pages/${page.slug}/`} component={Page} page={page} />
+            home: <Route exact path="/" render={props => <Page {...props} page={page} isExcerpt={true} />} />,
+            page: <Route exact path={`/pages/${page.slug}/`} render={props => <Page {...props} page={page} />} />
           }) )
         }
       </div>

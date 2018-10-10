@@ -1,6 +1,6 @@
-
 {
   "name": "Restsplain",
+  "repository": "https://github.com/humanmade/RESTSplain",
   "version": "0.1.0",
   "main": "Gruntfile.js",
   "author": "Robert O'Rourke",

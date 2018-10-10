@@ -10,8 +10,8 @@ const Endpoints = ({ routes }) => {
         { Object.keys( routes )
           .filter( route => trim(route, '/') !== trim(routes[route].namespace, '/') && route !== '/' )
           .map( route => createFragment({
-            home: <Route exact path="/" component={Endpoint} route={({ self: route, ...routes[route]})} isExcerpt={true} />,
-            endpoint: <Route exact path={`/endpoints${getRouteURL(route)}`} component={Endpoint} route={({ self: route, ...routes[route]})} />
+            home: <Route exact path="/" render={props => <Endpoint {...props} route={({ self: route, ...routes[route]})} isExcerpt={true} />} />,
+            endpoint: <Route exact path={`/endpoints${getRouteURL(route)}`} render={props => <Endpoint {...props} route={({ self: route, ...routes[route]})} />} />
           }) )
         }
       </div>

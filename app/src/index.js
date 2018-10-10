@@ -56,7 +56,7 @@ history.listen( (location, action) => {
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path="/" component={DocsContainer} base={config.restBase} />
+      <Route path="/" render={props => <DocsContainer {...props} base={config.restBase} />} />
     </Router>
   </Provider>,
   document.getElementById( 'restsplain' )

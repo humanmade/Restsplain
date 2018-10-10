@@ -13,8 +13,8 @@ const Auths = ({ auths }) => {
     return (
       <div className="restsplain-auths">
         { Object.keys( auths ).map( auth => createFragment({
-            home: <Route exact path="/" component={Auth} name={auth} data={auths[auth]} isExcerpt={true} />,
-            page: <Route exact path={`/auths/${auth}/`} component={Auth} name={auth} data={auths[auth]} />
+            home: <Route exact path="/" render={props => <Auth {...props} name={auth} data={auths[auth]} isExcerpt={true} />} />,
+            page: <Route exact path={`/auths/${auth}/`} render={props => <Auth {...props} name={auth} data={auths[auth]} />} />
           }) )
         }
       </div>
