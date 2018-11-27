@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import createFragment from 'react-addons-create-fragment'
 import { Link } from 'react-router-dom'
 import MaybeHTML from '../MaybeHTML'

@@ -4,7 +4,7 @@ import { Router, Route } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
-import createLogger from 'redux-logger'
+import { createLogger } from 'redux-logger'
 import { createStore, applyMiddleware } from 'redux'
 
 // Redux

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
 import RouteParameters from './RouteParameters'
 import Parameters from './Parameters'
@@ -15,7 +16,7 @@ const Endpoint = ( { route, isExcerpt = false } ) => {
   let resource = (route._links && route._links.self) ||
                  `${trim( config.restBase, '/' )}${route.self}`
 
-  let hash = location.hash.substr( 1 )
+  let hash = window.location.hash.substr( 1 )
 
   if ( isExcerpt ) {
     return (

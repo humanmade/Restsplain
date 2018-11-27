@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import createFragment from 'react-addons-create-fragment'
 import LinkContainer from '../../containers/LinkContainer'
 import { l10n } from '../../helpers/l10n'

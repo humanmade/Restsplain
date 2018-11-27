@@ -15,7 +15,7 @@ if ( config.nonce ) {
 
 export function fetchSchema( schema ) {
   return dispatch => {
-    return fetch( schema + '?restsplain', opts )
+    return fetch( schema + '?restsplain=1', opts )
       .then( response => response.json() )
       .then( data => dispatch(actions.getSchema(data)) )
       .catch( error => dispatch(actions.getSchemaError(error)) )

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import Highlight from 'react-highlight'
 import Curl from './Code/Curl'
 import JS from './Code/JS'
@@ -26,8 +27,8 @@ const Code = ( { methods, resource, args = {}, language = 'curl', setLanguage } 
     .map( arg => ({ name: arg, value: getExampleData( args[ arg ].type ) }) )
 
   let method = 'GET'
-  if ( methods.includes( location.hash.substr(1) ) ) {
-    method = location.hash.substr(1)
+  if ( methods.includes( window.location.hash.substr(1) ) ) {
+    method = window.location.hash.substr(1)
   }
 
   let props = {
@@ -56,9 +57,9 @@ const Code = ( { methods, resource, args = {}, language = 'curl', setLanguage } 
     <div className="restsplain-endpoint-code">
       <h3>{l10n('code')}</h3>
       <nav>
-        <a className={language === 'curl' ? 'active' : ''} onClick={() => setLanguage( 'curl' )}>cURL</a>
-        <a className={language === 'js' ? 'active' : ''} onClick={() => setLanguage( 'js' )}>JS</a>
-        <a className={language === 'es6' ? 'active' : ''} onClick={() => setLanguage( 'es6' )}>ES6</a>
+        <button className={language === 'curl' ? 'active' : ''} onClick={() => setLanguage( 'curl' )}>cURL</button>
+        <button className={language === 'js' ? 'active' : ''} onClick={() => setLanguage( 'js' )}>JS</button>
+        <button className={language === 'es6' ? 'active' : ''} onClick={() => setLanguage( 'es6' )}>ES6</button>
       </nav>
       <Highlight className={code.language}>
         {code.code}

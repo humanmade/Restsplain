@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { getRouteParams, getParamType } from '../../helpers/transform'
 import { l10n } from '../../helpers/l10n'
 

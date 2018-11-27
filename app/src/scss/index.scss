@@ -281,11 +281,11 @@
     input {
       font-size: inherit;
       width: 100%;
-      border: 0;
+	  border: 0;
+	  padding: 0.5rem;
 
       &.restsplain-response-base {
         display: block;
-        margin-bottom: -0.5rem;
         padding-bottom: 0;
         position: relative;
       }

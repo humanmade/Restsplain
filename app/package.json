@@ -1,27 +1,28 @@
 {
   "name": "restsplain",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "private": true,
   "homepage": "http://wordpress-develop.dev",
   "devDependencies": {
     "node-sass": "^4.10.0",
     "npm-run-all": "^4.1.5",
-    "react-scripts": "0.8.5"
+    "react-scripts": "^2.1.1"
   },
   "dependencies": {
     "@treora/scroll-into-view": "^0.1.0",
     "highlight.js": "^9.13.1",
     "history": "^4.5.1",
+    "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-addons-create-fragment": "^15.4.2",
     "react-dom": "^16.6.3",
     "react-highlight": "^0.12.0",
     "react-json-inspector": "^7.0.0",
-    "react-redux": "^5.0.2",
+    "react-redux": "^5.1.1",
     "react-router": "next",
     "react-router-dom": "next",
-    "redux": "^3.6.0",
-    "redux-logger": "^2.8.1",
+    "redux": "^4.0.1",
+    "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "smoothscroll-polyfill": "^0.4.3"
   },
@@ -34,5 +35,11 @@
     "build": "run-s build-css build-js",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

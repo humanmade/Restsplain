@@ -134,10 +134,10 @@ function enqueue_scripts( $args = array() ) {
 		// Allow hot reloading.
 		wp_enqueue_script( 'node-socks', 'http://localhost:3000/webpack-dev-server.js', array(), null, true );
 	} else {
-		$js_url = RESTSPLAIN_URL . '/app/build/' . $files['main.js'];
+		$js_url = RESTSPLAIN_URL . '/app/build' . $files['main.js'];
 
 		// CSS has to be enqueued in WordPress context
-		wp_enqueue_style( 'restsplain', RESTSPLAIN_URL . '/app/build/' . $files['main.css'] );
+		wp_enqueue_style( 'restsplain', RESTSPLAIN_URL . '/app/build' . $files['main.css'] );
 	}
 
 	wp_enqueue_script( 'restsplain', $js_url, array(), null, true );

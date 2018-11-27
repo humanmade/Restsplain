@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { Route, Link } from 'react-router-dom'
 import Menu from './Menu'
 import Endpoints from './Endpoints'
@@ -26,7 +27,9 @@ const Docs = ({ schema = {}, fetchSchema }) => {
       <div className={classNames.join(' ')}>
         <h1>{l10n('failedFetchingSchema')}</h1>
         <p>{l10n('apiMayBeDown')}</p>
-        { schema.error && <p className="restsplain-error">{schema.error}</p> }
+        { schema.error && typeof schema.error === 'string' && (
+			<p className="restsplain-error">{schema.error}</p>
+		) }
         <div className="restsplain-loader"></div>
       </div>
     )

@@ -77,10 +77,10 @@ export const getTypeString = (arg) => {
 }
 
 export const getRouteParams = (route) => route
-  .split(/(.*?\(\?P[^\)]+\))/)
+  .split(/(.*?\(\?P[^)]+\))/)
   .filter(Boolean)
   .map( (p) => {
-    let [path, name, match] = p.split(/([^\)]+)\(\?P<([a-z0-9]+)>([^\)]+)\)/).filter(Boolean)
+    let [path, name, match] = p.split(/([^)]+)\(\?P<([a-z0-9]+)>([^)]+)\)/).filter(Boolean)
     let example = getExampleData(getParamType(match))
     return name && { path, name, match, example }
   } )

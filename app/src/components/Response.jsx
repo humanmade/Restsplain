@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Inspector from 'react-json-inspector'
 import Highlight from 'react-highlight'
 import Links from './Endpoints/Links'
@@ -79,9 +80,9 @@ class Response extends Component {
         { response && response.data &&
           <div className="restsplain-response-view">
             <nav>
-              <a className={view === 'raw' && 'active'} onClick={() => setView( 'raw' )}>{l10n('raw')}</a>
-              <a className={view === 'json' && 'active'} onClick={() => setView( 'json' )}>{l10n('json')}</a>
-              <a className={view === 'links' && 'active'} onClick={() => setView( 'links' )}>{l10n('links')}</a>
+              <button className={view === 'raw' && 'active'} onClick={() => setView( 'raw' )}>{l10n('raw')}</button>
+              <button className={view === 'json' && 'active'} onClick={() => setView( 'json' )}>{l10n('json')}</button>
+              <button className={view === 'links' && 'active'} onClick={() => setView( 'links' )}>{l10n('links')}</button>
             </nav>
 
             { view === 'raw' &&
