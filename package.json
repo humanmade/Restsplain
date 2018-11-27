@@ -1,12 +1,12 @@
 {
   "name": "Restsplain",
   "repository": "https://github.com/humanmade/RESTSplain",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "main": "Gruntfile.js",
   "author": "Robert O'Rourke",
   "devDependencies": {
-    "grunt": "~0.4.5",
-    "grunt-wp-i18n": "~0.5.0",
+    "grunt": "^1.0.3",
+    "grunt-wp-i18n": "^1.0.2",
     "grunt-wp-readme-to-markdown": "~1.0.0"
   }
 }
