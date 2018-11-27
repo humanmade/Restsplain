@@ -128,20 +128,36 @@ function enqueue_scripts( $args = array() ) {
 	 * $ cd app
 	 * $ npm install && npm start
 	 */
+	$deps = [];
+
 	if ( defined( 'RESTSPLAIN_DEBUG' ) && RESTSPLAIN_DEBUG ) {
 		$js_url = 'http://localhost:3000/static/js/bundle.js';
 
 		// Allow hot reloading.
-		wp_enqueue_script( 'node-socks', 'http://localhost:3000/webpack-dev-server.js', array(), null, true );
+		wp_enqueue_script( 'restsplain-runtime', 'http://localhost:3000/webpack-dev-server.js', [], null, true );
 	} else {
+		$js_runtime_url = RESTSPLAIN_URL . '/app/build' . $files['runtime~main.js'];
 		$js_url = RESTSPLAIN_URL . '/app/build' . $files['main.js'];
 
-		// CSS has to be enqueued in WordPress context
+		// Add the required files.
+		wp_register_script( 'restsplain-runtime', $js_runtime_url, [], null, true );
+		$deps[] = 'restsplain-runtime';
+
+		$chunk_files = array_filter( $files, function ( $file ) {
+			return preg_match( '#[A-Za-z0-9]{8}\.chunk\.js$#', $file );
+		} );
+
+		foreach ( $chunk_files as $chunk ) {
+			wp_register_script( 'restsplain-' . $chunk, RESTSPLAIN_URL . '/app/build' . $chunk, [], null, true );
+			$deps[] = 'restsplain-' . $chunk;
+		}
+
+		// CSS has to be enqueued in WordPress context.
 		wp_enqueue_style( 'restsplain', RESTSPLAIN_URL . '/app/build' . $files['main.css'] );
 	}
 
-	wp_enqueue_script( 'restsplain', $js_url, array(), null, true );
-	wp_add_inline_script( 'restsplain',
+	wp_enqueue_script( 'restsplain', $js_url, $deps, null, true );
+	wp_add_inline_script( 'restsplain-runtime',
 		sprintf( 'var restsplain = %s', wp_json_encode( $config ) ),
 		'before'
 	);

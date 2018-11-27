@@ -5,7 +5,7 @@
 
 const config = Object.assign( {}, {
   basename: '/',
-  restBase: 'http://hmn.local/wp-json/',
+  restBase: 'https://wordpress.org/wp-json/',
   embedded: false,
   codeTheme: 'tomorrow night',
   fallbackCodeTheme: false,
