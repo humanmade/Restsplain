@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@treora/scroll-into-view": "^0.1.0",
-    "highlight.js": "^9.13.1",
+    "highlight.js": "^9.18.2",
     "history": "^4.5.1",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
