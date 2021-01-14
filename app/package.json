@@ -16,7 +16,7 @@
     "react": "^16.6.3",
     "react-addons-create-fragment": "^15.4.2",
     "react-dom": "^16.6.3",
-    "react-highlight": "^0.12.0",
+    "react-highlight": "^0.13.0",
     "react-json-inspector": "^7.0.0",
     "react-redux": "^5.1.1",
     "react-router": "next",
