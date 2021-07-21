@@ -38,11 +38,14 @@ function get_default_docs_base() {
  * @return string
  */
 function get_docs_base() {
+	$base_url       = parse_url( home_url() );
+	$subdir_install = $base_url['path'];
+
 	if ( get_query_var( 'restsplain', false ) ) {
-		return get_default_docs_base();
+		return $subdir_install . get_default_docs_base();
 	}
 
-	return str_replace( home_url( '/' ), '', get_permalink() );
+	return $subdir_install . str_replace( home_url( '/' ), '', get_permalink() );
 }
 
 /**
