@@ -38,8 +38,7 @@ function get_default_docs_base() {
  * @return string
  */
 function get_docs_base() {
-	$base_url       = parse_url( home_url() );
-	$subdir_install = isset( $base_url['path'] ) ? $base_url['path'] : '';
+	$subdir_install = (string) parse_url( home_url(), PHP_URL_PATH );
 
 	if ( get_query_var( 'restsplain', false ) ) {
 		return $subdir_install . get_default_docs_base();
