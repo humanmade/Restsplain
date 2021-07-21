@@ -44,7 +44,7 @@ function get_docs_base() {
 		return $subdir_install . get_default_docs_base();
 	}
 
-	return $subdir_install . str_replace( home_url( '/' ), '', get_permalink() );
+	return $subdir_install . '/' . ltrim( str_replace( home_url( '/' ), '', get_permalink() ), '/' );
 }
 
 /**
