@@ -38,11 +38,13 @@ function get_default_docs_base() {
  * @return string
  */
 function get_docs_base() {
+	$subdir_install = rtrim( (string) parse_url( home_url(), PHP_URL_PATH ), '/' );
+
 	if ( get_query_var( 'restsplain', false ) ) {
-		return get_default_docs_base();
+		return $subdir_install . '/' . ltrim( get_default_docs_base(), '/' );
 	}
 
-	return str_replace( home_url( '/' ), '', get_permalink() );
+	return $subdir_install . '/' . ltrim( str_replace( home_url( '/' ), '', get_permalink() ), '/' );
 }
 
 /**
